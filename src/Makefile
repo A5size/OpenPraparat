@@ -128,6 +128,7 @@ all: $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI)
 	@echo Build complete for $(ECHO_MESSAGE)
 
 install:
+	mkdir -p ../build
 	mv $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) ../build/
 
 
