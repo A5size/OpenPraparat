@@ -3409,13 +3409,11 @@ public:
   
   glGetFloatv(GL_LINE_WIDTH , &width);
   glLineWidth(5);
-  //#pragma omp parallel for
   for(i=0;;i++)
   {
     get_cc_list(&i, &id1, &id2);
     if(id1<=-1 || id2<=-1)
     {
-      //printf("id1=%d, id2=%d\n", id1, id2);
       break;
     }
     get_cell(&id1, &e1, &x1, &y1, &z1, &r1, &cr1, &cg1, &cb1);
@@ -3428,9 +3426,6 @@ public:
       p2[0] = x2;
       p2[1] = y2;
       p2[2] = z2;
-      //printf("%d, %d\n", id1, id2);
-      //printf("%lf, %lf, %lf\n", x1, y1, z1);
-      //printf("%lf, %lf, %lf\n", x2, y2, z2);
       glColor3d((cr1 + cr2)/2.0, (cg1 + cg2)/2.0, (cb1 + cb2)/2.0);
       glBegin(GL_LINES);
       glVertex3dv(p1);
@@ -3440,49 +3435,6 @@ public:
   }
   glLineWidth(width);
 
-
-  /*
-    int kLen;
-    int id1, id2;
-    int i1, i2;
-    int e1, e2;
-    double r1, r2;
-    double x1, y1, z1, cr1, cg1, cb1;
-    double x2, y2, z2, cr2, cg2, cb2;
-    double p1[3], p2[3];
-    GLfloat width;
-    
-    glGetFloatv(GL_LINE_WIDTH , &width);
-    glLineWidth(5);
-    kLen = AppCM.kList.size();
-
-    for(int i=0; i<kLen; i++)
-    {
-      get_cc_list(&i, &id1, &id2);
-      if(id1<=-1 || id2<=-1)
-      {
-      	//printf("id1=%d, id2=%d\n", id1, id2);
-      	break;
-      }
-      get_cell(&id1, &e1, &x1, &y1, &z1, &r1, &cr1, &cg1, &cb1);
-      get_cell(&id2, &e2, &x2, &y2, &z2, &r2, &cr2, &cg2, &cb2);
-      if(e1==1 && e2==1)
-      {      
-	p1[0] = x1;
-	p1[1] = y1;
-	p1[2] = z1;
-	p2[0] = x2;
-	p2[1] = y2;
-	p2[2] = z2;
-	glColor3d((cr1 + cr2)/2.0, (cg1 + cg2)/2.0, (cb1 + cb2)/2.0);
-	glBegin(GL_LINES);
-	glVertex3dv(p1);
-	glVertex3dv(p2);
-	glEnd();
-      }
-    }
-    glLineWidth(width);
-  */
   }
 
   void display(GLFWwindow *window)
@@ -3575,61 +3527,6 @@ public:
 
     drawSelectedCell();
 
-
-    
-    //if(!CURSOR_ON_ImGuiWINDOW)
-    //{
-    //  if(SELECTION_MODE==1)
-    //  {
-    //    CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
-    //    if(MOTION_LEFT_BUTTON_FLAG==1 && CURRENT_SELECTED_CELL_INDEX!=-1)
-    //    {
-    //	  AppCM.addSelectedCell(CURRENT_SELECTED_CELL_INDEX);
-    //	  TRANSLATE_X = 0.0;
-    //	  TRANSLATE_Y = 0.0;
-    //	  TRANSLATE_Z = 0.0;
-    //    }
-    //    drawSelectedCell();
-    //  }
-    //  else if(SELECTION_MODE==2)
-    //  {
-    //    CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
-    //    if(MOTION_LEFT_BUTTON_FLAG==1 && CURRENT_SELECTED_CELL_INDEX!=-1)
-    //    {
-    //	  AppCM.removeSelectedCell(CURRENT_SELECTED_CELL_INDEX);
-    //	  TRANSLATE_X = 0.0;
-    //	  TRANSLATE_Y = 0.0;
-    //	  TRANSLATE_Z = 0.0;
-    //    }
-    //    drawSelectedCell();
-    //  }
-    //  else if(SELECTION_MODE==3)
-    //  {
-    //    AppFM.detectNewCandidateBlock(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
-    //    if(AppFM.newBlockFlag==1)
-    //    {
-    //	drawNewBlock();
-    //	if(MOTION_LEFT_BUTTON_FLAG==1)
-    //	{
-    //	  MOTION_LEFT_BUTTON_FLAG = 0;
-    //	  AppFM.addBlock();
-    //	}
-    //    }
-    //  }
-    //  else if(SELECTION_MODE==4)
-    //  {
-    //    AppFM.detectBlockToBeDeleted(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
-    //    if(AppFM.blockToBeDeletedFlag==1)
-    //    {
-    //	drawBlockToBeDeleted();
-    //	if(MOTION_LEFT_BUTTON_FLAG==1)
-    //	{
-    //	  MOTION_LEFT_BUTTON_FLAG = 0;
-    //	  AppFM.removeBlock();
-    //	}
-    //    }
-    //  }
-    //}
   
   }
   
