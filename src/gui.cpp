@@ -1953,6 +1953,9 @@ public:
     WIN_WIDTH = w;
     WIN_HEIGHT = h;
     
+    WIN_WIDTH_PIXEL  = w;
+    WIN_HEIGHT_PIXEL = h;
+    
     glViewport(0, 0, w, h);
     
     glMatrixMode(GL_PROJECTION);
@@ -1963,6 +1966,45 @@ public:
     
   }
 
+  void resize(GLFWwindow *window, int w, int h)
+  {
+
+    int renderBufferWidth, renderBufferHeight;
+    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
+    
+    WIN_WIDTH_PIXEL  = renderBufferWidth;
+    WIN_HEIGHT_PIXEL = renderBufferHeight;
+    
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, (double)w / (double)h, 1.0, 500.0);
+    
+    glMatrixMode(GL_MODELVIEW);
+  }
+  
+  void resize4apple(GLFWwindow *window, int width, int height)
+  {
+
+    glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
+    
+    int renderBufferWidth, renderBufferHeight;
+    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
+    
+    WIN_WIDTH_PIXEL  = renderBufferWidth;
+    WIN_HEIGHT_PIXEL = renderBufferHeight;
+  
+    glViewport(0, 0, renderBufferWidth, renderBufferHeight);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, (double)width / (double)height, 1.0, 500.0);
+    
+    glMatrixMode(GL_MODELVIEW);
+    
+  }
+  
   static void mouseButtonCB(GLFWwindow *window, int button, int action, int mods) {
     //printf("mouseButtonCB %d %d %d\n", button, action, mods);
     
@@ -2080,7 +2122,6 @@ public:
     int height = WIN_HEIGHT_PIXEL;
     double dx, dy, dz, r, l;
     double cx, cy, cz;
-    GLubyte* pixel_data = (GLubyte*)malloc((width)*(height)*3*(sizeof(GLubyte)));
     char filename[256];
     
     int LOOKAT_SMOOTH_FLAG = 0;
@@ -2387,6 +2428,8 @@ public:
     case 'Y':
       if(action==1)
       {
+	width = (width / 4) * 4;
+	GLubyte* pixel_data = (GLubyte*)malloc((width)*(height)*3*(sizeof(GLubyte)));
 	glReadBuffer( GL_BACK ); //GL_FRONT:フロントバッファ　GL_BACK:バックバッファ
 	glReadPixels(
 		     0, 0,
@@ -3528,40 +3571,7 @@ public:
     drawSelectedCell();
 
   
-  }
-  
-  void resize(int w, int h)
-  {
-    
-    glViewport(0, 0, w, h);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(30.0, (double)w / (double)h, 1.0, 500.0);
-    
-    glMatrixMode(GL_MODELVIEW);
-  }
-  
-  void resize4apple(GLFWwindow *window, int width, int height)
-  {
-
-    glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
-    
-    int renderBufferWidth, renderBufferHeight;
-    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
-    
-    WIN_WIDTH_PIXEL  = renderBufferWidth;
-    WIN_HEIGHT_PIXEL = renderBufferHeight;
-  
-    glViewport(0, 0, renderBufferWidth, renderBufferHeight);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(30.0, (double)width / (double)height, 1.0, 500.0);
-    
-    glMatrixMode(GL_MODELVIEW);
-    
-  }
+  }  
 
   static void rotation_x(double *x, double *y, double *z, double rad)
   {
@@ -3660,16 +3670,16 @@ public:
     
     glfwMakeContextCurrent(window);
     
-    int renderBufferWidth, renderBufferHeight;
-    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
-    
-    WIN_WIDTH_PIXEL  = renderBufferWidth;
-    WIN_HEIGHT_PIXEL = renderBufferHeight;
+#if defined(__APPLE__)
+      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
+#else
+      resize(window, WIN_WIDTH, WIN_HEIGHT);
+#endif
     
     initializeGL();
     
     glfwSwapInterval(1);
-        
+    
     pthread_t pt_praparat;
     pthread_create(&pt_praparat, NULL, pstep, &sim_min_steps);
         
@@ -3939,12 +3949,6 @@ public:
       glfwSetWindowTitle(window, winTitle);
       display(window);
 
-#if defined(__APPLE__)
-      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
-#else
-      resize(WIN_WIDTH, WIN_HEIGHT);
-#endif
-      
       //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
@@ -3954,16 +3958,17 @@ public:
       if(REC_FLAG==1)
       {
 	sprintf(filename, "./pic/%08d.bmp", world_step);
-	GLubyte* pixel_data = (GLubyte*)malloc((WIN_WIDTH_PIXEL)*(WIN_HEIGHT_PIXEL)*3*(sizeof(GLubyte)));
+	int WIN_WIDTH_PIXELx4 = (WIN_WIDTH_PIXEL / 4) * 4;
+	GLubyte* pixel_data = (GLubyte*)malloc((WIN_WIDTH_PIXELx4)*(WIN_HEIGHT_PIXEL)*3*(sizeof(GLubyte)));
 	//glReadBuffer( GL_FRONT ); //GL_FRONT:フロントバッファ　GL_BACK:バックバッファ
 	glReadBuffer( GL_BACK ); //GL_FRONT:フロントバッファ　GL_BACK:バックバッファ
 	glReadPixels(
 		     0, 0,
-		     WIN_WIDTH_PIXEL, WIN_HEIGHT_PIXEL,
+		     WIN_WIDTH_PIXELx4, WIN_HEIGHT_PIXEL,
 		     GL_RGB,
 		     GL_UNSIGNED_BYTE,
 		     pixel_data);
-	WriteBitmap(filename, pixel_data, WIN_WIDTH_PIXEL, WIN_HEIGHT_PIXEL);
+	WriteBitmap(filename, pixel_data, WIN_WIDTH_PIXELx4, WIN_HEIGHT_PIXEL);
 	free(pixel_data);
 	step(&rec_min_steps);
       }

@@ -1886,6 +1886,9 @@ public:
     WIN_WIDTH = w;
     WIN_HEIGHT = h;
     
+    WIN_WIDTH_PIXEL  = w;
+    WIN_HEIGHT_PIXEL = h;
+    
     glViewport(0, 0, w, h);
     
     glMatrixMode(GL_PROJECTION);
@@ -1896,6 +1899,45 @@ public:
     
   }
 
+  void resize(GLFWwindow *window, int w, int h)
+  {
+
+    int renderBufferWidth, renderBufferHeight;
+    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
+    
+    WIN_WIDTH_PIXEL  = renderBufferWidth;
+    WIN_HEIGHT_PIXEL = renderBufferHeight;
+
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, (double)w / (double)h, 1.0, 500.0);
+    
+    glMatrixMode(GL_MODELVIEW);
+  }
+  
+  void resize4apple(GLFWwindow *window, int width, int height)
+  {
+
+    glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
+    
+    int renderBufferWidth, renderBufferHeight;
+    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
+    
+    WIN_WIDTH_PIXEL  = renderBufferWidth;
+    WIN_HEIGHT_PIXEL = renderBufferHeight;
+  
+    glViewport(0, 0, renderBufferWidth, renderBufferHeight);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, (double)width / (double)height, 1.0, 500.0);
+    
+    glMatrixMode(GL_MODELVIEW);
+    
+  }
+  
   static void mouseButtonCB(GLFWwindow *window, int button, int action, int mods) {
     //printf("mouseButtonCB %d %d %d\n", button, action, mods);
     
@@ -3473,39 +3515,6 @@ public:
   
   }
   
-  void resize(int w, int h)
-  {
-    
-    glViewport(0, 0, w, h);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(30.0, (double)w / (double)h, 1.0, 500.0);
-    
-    glMatrixMode(GL_MODELVIEW);
-  }
-  
-  void resize4apple(GLFWwindow *window, int width, int height)
-  {
-
-    glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
-    
-    int renderBufferWidth, renderBufferHeight;
-    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
-    
-    WIN_WIDTH_PIXEL  = renderBufferWidth;
-    WIN_HEIGHT_PIXEL = renderBufferHeight;
-  
-    glViewport(0, 0, renderBufferWidth, renderBufferHeight);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(30.0, (double)width / (double)height, 1.0, 500.0);
-    
-    glMatrixMode(GL_MODELVIEW);
-    
-  }
-
   static void rotation_x(double *x, double *y, double *z, double rad)
   {
     double tmpY, tmpZ;
@@ -3603,11 +3612,11 @@ public:
     
     glfwMakeContextCurrent(window);
     
-    int renderBufferWidth, renderBufferHeight;
-    glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
-    
-    WIN_WIDTH_PIXEL  = renderBufferWidth;
-    WIN_HEIGHT_PIXEL = renderBufferHeight;
+#if defined(__APPLE__)
+      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
+#else
+      resize(window, WIN_WIDTH, WIN_HEIGHT);
+#endif
     
     initializeGL();
     
@@ -3932,12 +3941,6 @@ public:
       glfwSetWindowTitle(window, winTitle);
       display(window);
 
-#if defined(__APPLE__)
-      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
-#else
-      resize(WIN_WIDTH, WIN_HEIGHT);
-#endif
-      
       //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
