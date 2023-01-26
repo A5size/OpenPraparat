@@ -2,7 +2,8 @@
 # Cross Platform Makefile
 #
 
-CXX = g++
+#CXX = g++
+CXX = g++-12
 #CXX = clang++
 
 FC = gfortran
@@ -40,9 +41,10 @@ FFLAGS_CUI = -O3
 UNAME_S := $(shell uname -s)
 LINUX_GL_LIBS = -lGL
 
-CXXFLAGS = -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
+CXXFLAGS = -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
 CXXFLAGS += -g -Wall -Wformat
 CXXFLAGS += -Wall -fbounds-check -O0 -Wuninitialized -g
+#CXXFLAGS += -static
 CXXFLAGS += -lgfortran -lpthread
 LIBS =
 

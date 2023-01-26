@@ -3669,13 +3669,7 @@ public:
     }
     
     glfwMakeContextCurrent(window);
-    
-#if defined(__APPLE__)
-      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
-#else
-      resize(window, WIN_WIDTH, WIN_HEIGHT);
-#endif
-    
+        
     initializeGL();
     
     glfwSwapInterval(1);
@@ -3952,6 +3946,12 @@ public:
       //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
+#if defined(__APPLE__)
+      resize4apple(window, WIN_WIDTH, WIN_HEIGHT);
+#else
+      resize(window, WIN_WIDTH, WIN_HEIGHT);
+#endif
+      
       glfwSwapBuffers(window);
       glfwPollEvents();
       
