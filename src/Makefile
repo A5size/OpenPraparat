@@ -83,6 +83,14 @@ endif
 ## BUILD RULES
 ##---------------------------------------------------------------------
 
+all: $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) 
+	@echo Build complete for $(ECHO_MESSAGE)
+
+install:
+	mkdir -p ../build
+	mv $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) ../build/
+
+
 %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
@@ -126,14 +134,6 @@ main_cui.o:main.f90
 	$(FC) $(FFLAGS_CUI) -c main.f90 -o main_cui.o
 
 
-all: $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) 
-	@echo Build complete for $(ECHO_MESSAGE)
-
-install:
-	mkdir -p ../build
-	mv $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) ../build/
-
-
 $(EXE_GUI): $(OBJS_GUI)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
 
@@ -145,6 +145,7 @@ $(EXE_DEB): $(OBJS_DEB)
 
 $(EXE_CUI): $(OBJS_CUI)
 	$(FC) -o $@ $^ $(FFLAGS_CUI) 
+
 
 clean:
 	rm -f $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) $(OBJS_GUI) $(OBJS_BLD) $(OBJS_DEB) $(OBJS_CUI)
