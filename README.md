@@ -28,3 +28,34 @@ cd ./OpenPraparat/src
 make all install
 ```
 
+## Example
+```
+tar -zxvf examples.tar.gz 
+cd examples
+```
+
+### Dumbbell-shaped virtual creatures
+```
+cd 01dumbbell_shaped
+../../build/praparat_gui
+```
+
+### Reticulated virtual creatures
+```
+cd 02reticulated
+```
+#### Normal biome
+```
+cd 01normal
+../../../build/praparat_gui
+```
+#### Simulation with one cell fixed
+```
+cd 02fix
+../../../build/praparat_gui
+```
+
+
+
+
+
