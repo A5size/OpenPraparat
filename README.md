@@ -37,8 +37,13 @@ cd examples
 ### Dumbbell-shaped virtual creatures
 ```
 cd 01dumbbell_shaped
-../../build/praparat_gui
 ```
+#### Normal biome
+```
+cd 01normal
+../../../build/praparat_gui
+```
+Click the "Target Directory" button, and choose the current directory. 
 
 ### Reticulated virtual creatures
 ```
@@ -49,11 +54,14 @@ cd 02reticulated
 cd 01normal
 ../../../build/praparat_gui
 ```
+Click the "Target Directory" button, and choose the current directory. 
+
 #### Simulation with one cell fixed
 ```
 cd 02fix
 ../../../build/praparat_gui
 ```
+Click the "Target Directory" button, and choose the current directory. 
 
 
 
