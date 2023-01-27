@@ -1652,12 +1652,12 @@ contains
         Do i=1, FIELD_SIZE_X
             Do j=1, FIELD_SIZE_Y
                 Do k=1, FIELD_SIZE_Z
-                    write(fp,*) FIELD(i,j,k)%wall
-                    write(fp,*) FIELD(i,j,k)%NOC
-                    write(fp,*) FIELD(i,j,k)%IOC(:)
-                    write(fp,*) FIELD(i,j,k)%x, FIELD(i,j,k)%y, FIELD(i,j,k)%z
-                    write(fp,*) FIELD(i,j,k)%cr, FIELD(i,j,k)%cg, FIELD(i,j,k)%cb
-                    write(fp,*) FIELD(i,j,k)%ar, FIELD(i,j,k)%ag, FIELD(i,j,k)%ab
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%wall
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%NOC
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%IOC(:)
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%x, FIELD(i,j,k)%y, FIELD(i,j,k)%z
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%cr, FIELD(i,j,k)%cg, FIELD(i,j,k)%cb
+                    write(fp, "(*(G0, ' '))") FIELD(i,j,k)%ar, FIELD(i,j,k)%ag, FIELD(i,j,k)%ab
                 end Do
             end Do
         end Do
@@ -1715,101 +1715,101 @@ contains
         open(fp, file=filename, status='replace')
         
         !Integer :: exist
-        write(fp,*) CELLS(id)%exist
+        write(fp, "(*(G0, ' '))") CELLS(id)%exist
 
         !Character(len=BOOK_MAX_LENGTH) :: book
-        write(fp,'(A)') '!'//trim(CELLS(id)%book)
+        write(fp, '(A)') '!'//trim(CELLS(id)%book)
         !Character(len=BOOKMARKER_LENGTH) :: bookmarker
-        write(fp,'(A)') '!'//trim(CELLS(id)%bookmarker)
+        write(fp, '(A)') '!'//trim(CELLS(id)%bookmarker)
         !Character(len=BOOKMARKER_ADVANCE_LENGTH) :: bookmarker_advance
-        write(fp,'(A)') '!'//trim(CELLS(id)%bookmarker_advance)
+        write(fp, '(A)') '!'//trim(CELLS(id)%bookmarker_advance)
 
         !Double precision :: x, y, z
-        write(fp,*) CELLS(id)%x, CELLS(id)%y, CELLS(id)%z
+        write(fp, "(*(G0, ' '))") CELLS(id)%x, CELLS(id)%y, CELLS(id)%z
         !Integer :: nx, ny, nz
-        write(fp,*) CELLS(id)%nx, CELLS(id)%ny, CELLS(id)%nz
+        write(fp, "(*(G0, ' '))") CELLS(id)%nx, CELLS(id)%ny, CELLS(id)%nz
         !Double precision :: vx, vy, vz
-        write(fp,*) CELLS(id)%vx, CELLS(id)%vy, CELLS(id)%vz
+        write(fp, "(*(G0, ' '))") CELLS(id)%vx, CELLS(id)%vy, CELLS(id)%vz
         !Double precision :: fx, fy, fz
-        write(fp,*) CELLS(id)%fx, CELLS(id)%fy, CELLS(id)%fz
+        write(fp, "(*(G0, ' '))") CELLS(id)%fx, CELLS(id)%fy, CELLS(id)%fz
         !Double precision :: cr, cg, cb
-        write(fp,*) CELLS(id)%cr, CELLS(id)%cg, CELLS(id)%cb
+        write(fp, "(*(G0, ' '))") CELLS(id)%cr, CELLS(id)%cg, CELLS(id)%cb
         !Double precision :: ar, ag, ab
-        write(fp,*) CELLS(id)%ar, CELLS(id)%ag, CELLS(id)%ab
+        write(fp, "(*(G0, ' '))") CELLS(id)%ar, CELLS(id)%ag, CELLS(id)%ab
         !Double precision :: IOLr  !Intensity Of Light r
-        write(fp,*) CELLS(id)%IOLr
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLr
         !Double precision :: IOLg  !Intensity Of Light g
-        write(fp,*) CELLS(id)%IOLg
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLg
         !Double precision :: IOLb  !Intensity Of Light b
-        write(fp,*) CELLS(id)%IOLb
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLb
         !Double precision :: m
-        write(fp,*) CELLS(id)%m
+        write(fp, "(*(G0, ' '))") CELLS(id)%m
         !Double precision :: r
-        write(fp,*) CELLS(id)%r
+        write(fp, "(*(G0, ' '))") CELLS(id)%r
         !Double precision :: E
-        write(fp,*) CELLS(id)%E
+        write(fp, "(*(G0, ' '))") CELLS(id)%E
         !Double precision :: alpha
-        write(fp,*) CELLS(id)%alpha
+        write(fp, "(*(G0, ' '))") CELLS(id)%alpha
 
         !Integer :: ID
-        write(fp,*) CELLS(id)%ID
+        write(fp, "(*(G0, ' '))") CELLS(id)%ID
         
         !Integer :: age
-        write(fp,*) CELLS(id)%age
+        write(fp, "(*(G0, ' '))") CELLS(id)%age
 
         !Double precision :: in_data(NOIU)
-        write(fp,*) CELLS(id)%in_data(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%in_data(:)
         !Double precision :: out_data(NOOU)
-        write(fp,*) CELLS(id)%out_data(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%out_data(:)
         !Double precision :: w1(NOHU,(NOIU+1))
-        write(fp,*) CELLS(id)%w1(:,:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%w1(:,:)
         !Double precision :: w2(NOOU,(NOHU+1))
-        write(fp,*) CELLS(id)%w2(:,:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%w2(:,:)
 
         !Double precision :: KOCC(NOCC)    !K Of Connected Cell
-        write(fp,*) CELLS(id)%KOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%KOCC(:)
         !Double precision :: LOCC(NOCC)    !L Of Connected Cell
-        write(fp,*) CELLS(id)%LOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%LOCC(:)
         !Double precision :: SOCC(NOCC)    !S Of Connected Cell
-        write(fp,*) CELLS(id)%SOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%SOCC(:)
 
         !Integer :: CCF(NOCC)      !Connected Cell Flag
-        write(fp,*) CELLS(id)%CCF(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%CCF(:)
         !Integer :: IOCC(NOCC)     !Id Of Connected Cell
-        write(fp,*) CELLS(id)%IOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOCC(:)
         !Integer :: UIOCC(NOCC)    !Unit Id Of Connected Cell
-        write(fp,*) CELLS(id)%UIOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%UIOCC(:)
 
         !Integer :: HIT_BLOCK_AF
-        write(fp,*) CELLS(id)%HIT_BLOCK_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%HIT_BLOCK_AF
         !Integer :: HIT_CELL_AF
-        write(fp,*) CELLS(id)%HIT_CELL_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%HIT_CELL_AF
         !Integer :: SPRING_AF
-        write(fp,*) CELLS(id)%SPRING_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%SPRING_AF
         !Integer :: MECHANICS_AF
-        write(fp,*) CELLS(id)%MECHANICS_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%MECHANICS_AF
 
         !Integer :: EAT_AF
-        write(fp,*) CELLS(id)%EAT_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%EAT_AF
         !Integer :: FUSION_AF
-        write(fp,*) CELLS(id)%FUSION_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%FUSION_AF
         !Integer :: LIGHT_AF
-        write(fp,*) CELLS(id)%LIGHT_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%LIGHT_AF
 
         !Integer :: INFO_TRANS_F
-        write(fp,*) CELLS(id)%INFO_TRANS_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%INFO_TRANS_F
         !Integer :: NEURAL_NETWORK_F
-        write(fp,*) CELLS(id)%NEURAL_NETWORK_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%NEURAL_NETWORK_F
 
         !Integer :: WAIT_FOR_CONNECT_F
-        write(fp,*) CELLS(id)%WAIT_FOR_CONNECT_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_CONNECT_F
         !Integer :: WAIT_FOR_CONNECT_UI
-        write(fp,*) CELLS(id)%WAIT_FOR_CONNECT_UI
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_CONNECT_UI
         !Integer :: WAIT_FOR_DISCONNECT_F
-        write(fp,*) CELLS(id)%WAIT_FOR_DISCONNECT_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_DISCONNECT_F
 
         !Integer :: ALONE_F
-        write(fp,*) CELLS(id)%ALONE_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%ALONE_F
         close(fp)
     end subroutine write_cell
 
@@ -2037,7 +2037,7 @@ contains
 
         open(fp, file=trim(adjustl(basefilename)), status='replace')
 
-        write(fp,*) NUMBER_OF_CELL 
+        write(fp, "(*(G0, ' '))") NUMBER_OF_CELL 
         
         Do id=1, NUMBER_OF_CELL
            call write_cell_into_one(fp, id)
@@ -2057,7 +2057,7 @@ contains
         Integer :: fp, id
         
         !Integer :: exist
-        write(fp,*) CELLS(id)%exist
+        write(fp, "(*(G0, ' '))") CELLS(id)%exist
 
         !Character(len=BOOK_MAX_LENGTH) :: book
         write(fp,'(A)') '!'//trim(CELLS(id)%book)
@@ -2067,91 +2067,91 @@ contains
         write(fp,'(A)') '!'//trim(CELLS(id)%bookmarker_advance)
 
         !Double precision :: x, y, z
-        write(fp,*) CELLS(id)%x, CELLS(id)%y, CELLS(id)%z
+        write(fp, "(*(G0, ' '))") CELLS(id)%x, CELLS(id)%y, CELLS(id)%z
         !Integer :: nx, ny, nz
-        write(fp,*) CELLS(id)%nx, CELLS(id)%ny, CELLS(id)%nz
+        write(fp, "(*(G0, ' '))") CELLS(id)%nx, CELLS(id)%ny, CELLS(id)%nz
         !Double precision :: vx, vy, vz
-        write(fp,*) CELLS(id)%vx, CELLS(id)%vy, CELLS(id)%vz
+        write(fp, "(*(G0, ' '))") CELLS(id)%vx, CELLS(id)%vy, CELLS(id)%vz
         !Double precision :: fx, fy, fz
-        write(fp,*) CELLS(id)%fx, CELLS(id)%fy, CELLS(id)%fz
+        write(fp, "(*(G0, ' '))") CELLS(id)%fx, CELLS(id)%fy, CELLS(id)%fz
         !Double precision :: cr, cg, cb
-        write(fp,*) CELLS(id)%cr, CELLS(id)%cg, CELLS(id)%cb
+        write(fp, "(*(G0, ' '))") CELLS(id)%cr, CELLS(id)%cg, CELLS(id)%cb
         !Double precision :: ar, ag, ab
-        write(fp,*) CELLS(id)%ar, CELLS(id)%ag, CELLS(id)%ab
+        write(fp, "(*(G0, ' '))") CELLS(id)%ar, CELLS(id)%ag, CELLS(id)%ab
         !Double precision :: IOLr  !Intensity Of Light r
-        write(fp,*) CELLS(id)%IOLr
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLr
         !Double precision :: IOLg  !Intensity Of Light g
-        write(fp,*) CELLS(id)%IOLg
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLg
         !Double precision :: IOLb  !Intensity Of Light b
-        write(fp,*) CELLS(id)%IOLb
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOLb
         !Double precision :: m
-        write(fp,*) CELLS(id)%m
+        write(fp, "(*(G0, ' '))") CELLS(id)%m
         !Double precision :: r
-        write(fp,*) CELLS(id)%r
+        write(fp, "(*(G0, ' '))") CELLS(id)%r
         !Double precision :: E
-        write(fp,*) CELLS(id)%E
+        write(fp, "(*(G0, ' '))") CELLS(id)%E
         !Double precision :: alpha
-        write(fp,*) CELLS(id)%alpha
+        write(fp, "(*(G0, ' '))") CELLS(id)%alpha
 
         !Integer :: ID
-        write(fp,*) CELLS(id)%ID
+        write(fp, "(*(G0, ' '))") CELLS(id)%ID
 
         !Integer :: age
-        write(fp,*) CELLS(id)%age
+        write(fp, "(*(G0, ' '))") CELLS(id)%age
 
         !Double precision :: in_data(NOIU)
-        write(fp,*) CELLS(id)%in_data(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%in_data(:)
         !Double precision :: out_data(NOOU)
-        write(fp,*) CELLS(id)%out_data(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%out_data(:)
         !Double precision :: w1(NOHU,(NOIU+1))
-        write(fp,*) CELLS(id)%w1(:,:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%w1(:,:)
         !Double precision :: w2(NOOU,(NOHU+1))
-        write(fp,*) CELLS(id)%w2(:,:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%w2(:,:)
 
         !Double precision :: KOCC(NOCC)    !K Of Connected Cell
-        write(fp,*) CELLS(id)%KOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%KOCC(:)
         !Double precision :: LOCC(NOCC)    !L Of Connected Cell
-        write(fp,*) CELLS(id)%LOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%LOCC(:)
         !Double precision :: SOCC(NOCC)    !S Of Connected Cell
-        write(fp,*) CELLS(id)%SOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%SOCC(:)
 
         !Integer :: CCF(NOCC)      !Connected Cell Flag
-        write(fp,*) CELLS(id)%CCF(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%CCF(:)
         !Integer :: IOCC(NOCC)     !Id Of Connected Cell
-        write(fp,*) CELLS(id)%IOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%IOCC(:)
         !Integer :: UIOCC(NOCC)    !Unit Id Of Connected Cell
-        write(fp,*) CELLS(id)%UIOCC(:)
+        write(fp, "(*(G0, ' '))") CELLS(id)%UIOCC(:)
 
         !Integer :: HIT_BLOCK_AF
-        write(fp,*) CELLS(id)%HIT_BLOCK_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%HIT_BLOCK_AF
         !Integer :: HIT_CELL_AF
-        write(fp,*) CELLS(id)%HIT_CELL_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%HIT_CELL_AF
         !Integer :: SPRING_AF
-        write(fp,*) CELLS(id)%SPRING_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%SPRING_AF
         !Integer :: MECHANICS_AF
-        write(fp,*) CELLS(id)%MECHANICS_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%MECHANICS_AF
 
         !Integer :: EAT_AF
-        write(fp,*) CELLS(id)%EAT_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%EAT_AF
         !Integer :: FUSION_AF
-        write(fp,*) CELLS(id)%FUSION_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%FUSION_AF
         !Integer :: LIGHT_AF
-        write(fp,*) CELLS(id)%LIGHT_AF
+        write(fp, "(*(G0, ' '))") CELLS(id)%LIGHT_AF
 
         !Integer :: INFO_TRANS_F
-        write(fp,*) CELLS(id)%INFO_TRANS_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%INFO_TRANS_F
         !Integer :: NEURAL_NETWORK_F
-        write(fp,*) CELLS(id)%NEURAL_NETWORK_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%NEURAL_NETWORK_F
 
         !Integer :: WAIT_FOR_CONNECT_F
-        write(fp,*) CELLS(id)%WAIT_FOR_CONNECT_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_CONNECT_F
         !Integer :: WAIT_FOR_CONNECT_UI
-        write(fp,*) CELLS(id)%WAIT_FOR_CONNECT_UI
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_CONNECT_UI
         !Integer :: WAIT_FOR_DISCONNECT_F
-        write(fp,*) CELLS(id)%WAIT_FOR_DISCONNECT_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%WAIT_FOR_DISCONNECT_F
 
         !Integer :: ALONE_F
-        write(fp,*) CELLS(id)%ALONE_F
+        write(fp, "(*(G0, ' '))") CELLS(id)%ALONE_F
 
     end subroutine write_cell_into_one
 
@@ -2872,37 +2872,37 @@ contains
             gy = CENTER_OF_GRAV_Y/TOT_M
             gz = CENTER_OF_GRAV_Z/TOT_M
             sun_theta = 2.0d0*PI*(dble(WORLD_STEP)/SUN_CYCLE)
-            write(*,*) '#####################################################'
-            write(*,*) 'WORLD_STEP             =', WORLD_STEP
-            write(*,*) 'CALC_CLL               =', CALC_CLL
-            write(*,*) 'NOT_CALC_CLL           =', NOT_CALC_CLL
-            write(*,*) 'NUMBER_OF_INFO_TRANS   =', NUMBER_OF_INFO_TRANS
-            write(*,*) 'CALC_CLL-INFO_TRANS    =', NUMBER_OF_CELLS_WOIT
-            write(*,*) 'CALC_CLL+NOT_CALC_CLL  =', CALC_CLL+NOT_CALC_CLL
-            write(*,*) 'CONN_CLL               =', CONN_CLL
-            write(*,*) 'EAT_COUNT*             =', EAT_COUNT
-            write(*,'(A,9i12)') ' EAT_INFO*              =', EAT_INFO
-            write(*,'(A,9i12)') ' EATEN_INFO*            =', EATEN_INFO
-            write(*,*) 'FUSION_COUNT*          =', FUSION_COUNT
-            write(*,*) 'EXPANSION_COUNT*       =', EXPANSION_COUNT
-            write(*,*) 'CONNECT_COUNT*         =', CONNECT_COUNT
-            write(*,*) 'DISCONNECT_COUNT*      =', DISCONNECT_COUNT
-            write(*,*) 'TURN_BOOKMARKER_COUNT* =', TURN_BOOKMARKER_COUNT
-            write(*,*) 'MUTATION_COUNT*        =', MUTATION_COUNT
-            write(*,*) 'DEATHS_COUNT*          =', DEATHS_COUNT
-            write(*,*) 'CELLS(SUN_ID)%LIGHT_AF =', SUN_ID, CELLS(SUN_ID)%LIGHT_AF, NIGHT_FLAG 
-            write(*,*) 'sun_theta              =', sun_theta
-            write(*,*) 'TOT_ENERGY*            =', TOT_ENERGY
-            write(*,*) 'AVE_ENERGY*            =', TOT_ENERGY/dble(CALC_CLL-NUMBER_OF_INFO_TRANS)
-            write(*,*) 'EVERY_STEP_COST_A      =', EVERY_STEP_COST_A
-            write(*,*) 'CHANGE_L_COUNT*        =', CHANGE_L_COUNT
-            write(*,*) 'ENERGY_TRANSIT_COUNT*  =', ENERGY_TRANSIT_COUNT
-            write(*,'(A,f12.5,f12.5,f12.5)') ' CENTER_OF_GRAV         =', gx, gy, gz
-            write(*,'(A,f16.2,f16.2,i12,i12)') ' AGE INFO FOR CELL      =', AGE_AVE, AGE_VAR, AGE_MIN, AGE_MAX
-            write(*,'(A,f16.2,f16.2,i12,i12)') ' AGE INFO FOR IT        =', AGE_IT_AVE, AGE_IT_VAR, AGE_IT_MIN, AGE_IT_MAX
-            write(*,*) 'TOT_M*                 =', TOT_M
-            write(*,*) 'ALONE_COUNT*           =', ALONE_COUNT
-            write(*,*) '#####################################################'
+            write(*, "(*(G0, ' '))") '#####################################################'
+            write(*, "(*(G0, ' '))") 'WORLD_STEP             =', WORLD_STEP
+            write(*, "(*(G0, ' '))") 'CALC_CLL               =', CALC_CLL
+            write(*, "(*(G0, ' '))") 'NOT_CALC_CLL           =', NOT_CALC_CLL
+            write(*, "(*(G0, ' '))") 'NUMBER_OF_INFO_TRANS   =', NUMBER_OF_INFO_TRANS
+            write(*, "(*(G0, ' '))") 'CALC_CLL-INFO_TRANS    =', NUMBER_OF_CELLS_WOIT
+            write(*, "(*(G0, ' '))") 'CALC_CLL+NOT_CALC_CLL  =', CALC_CLL+NOT_CALC_CLL
+            write(*, "(*(G0, ' '))") 'CONN_CLL               =', CONN_CLL
+            write(*, "(*(G0, ' '))") 'EAT_COUNT*             =', EAT_COUNT
+            write(*, "(*(G0, ' '))") 'EAT_INFO*              =', EAT_INFO
+            write(*, "(*(G0, ' '))") 'EATEN_INFO*            =', EATEN_INFO
+            write(*, "(*(G0, ' '))") 'FUSION_COUNT*          =', FUSION_COUNT
+            write(*, "(*(G0, ' '))") 'EXPANSION_COUNT*       =', EXPANSION_COUNT
+            write(*, "(*(G0, ' '))") 'CONNECT_COUNT*         =', CONNECT_COUNT
+            write(*, "(*(G0, ' '))") 'DISCONNECT_COUNT*      =', DISCONNECT_COUNT
+            write(*, "(*(G0, ' '))") 'TURN_BOOKMARKER_COUNT* =', TURN_BOOKMARKER_COUNT
+            write(*, "(*(G0, ' '))") 'MUTATION_COUNT*        =', MUTATION_COUNT
+            write(*, "(*(G0, ' '))") 'DEATHS_COUNT*          =', DEATHS_COUNT
+            write(*, "(*(G0, ' '))") 'CELLS(SUN_ID)%LIGHT_AF =', SUN_ID, CELLS(SUN_ID)%LIGHT_AF, NIGHT_FLAG 
+            write(*, "(*(G0, ' '))") 'sun_theta              =', sun_theta
+            write(*, "(*(G0, ' '))") 'TOT_ENERGY*            =', TOT_ENERGY
+            write(*, "(*(G0, ' '))") 'AVE_ENERGY*            =', TOT_ENERGY/dble(CALC_CLL-NUMBER_OF_INFO_TRANS)
+            write(*, "(*(G0, ' '))") 'EVERY_STEP_COST_A      =', EVERY_STEP_COST_A
+            write(*, "(*(G0, ' '))") 'CHANGE_L_COUNT*        =', CHANGE_L_COUNT
+            write(*, "(*(G0, ' '))") 'ENERGY_TRANSIT_COUNT*  =', ENERGY_TRANSIT_COUNT
+            write(*, "(*(G0, ' '))") 'CENTER_OF_GRAV         =', gx, gy, gz
+            write(*, "(*(G0, ' '))") 'AGE INFO FOR CELL      =', AGE_AVE, AGE_VAR, AGE_MIN, AGE_MAX
+            write(*, "(*(G0, ' '))") 'AGE INFO FOR IT        =', AGE_IT_AVE, AGE_IT_VAR, AGE_IT_MIN, AGE_IT_MAX
+            write(*, "(*(G0, ' '))") 'TOT_M*                 =', TOT_M
+            write(*, "(*(G0, ' '))") 'ALONE_COUNT*           =', ALONE_COUNT
+            write(*, "(*(G0, ' '))") '#####################################################'
             EAT_COUNT = 0
             EAT_INFO(:) = 0
             EATEN_INFO(:) = 0
