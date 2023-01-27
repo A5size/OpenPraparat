@@ -2,8 +2,8 @@
 # Cross Platform Makefile
 #
 
-#CXX = g++
-CXX = g++-12
+CXX = g++
+#CXX = g++-12
 #CXX = clang++
 
 FC = gfortran
@@ -147,5 +147,5 @@ $(EXE_CUI): $(OBJS_CUI)
 	$(FC) -o $@ $^ $(FFLAGS_CUI) 
 
 clean:
-	rm -f $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) $(OBJS_GUI) $(OBJS_BLD) $(OBJS_DEB) $(OBJS_CUI)
+	rm -f $(EXE_GUI) $(EXE_BLD) $(EXE_DEB) $(EXE_CUI) $(OBJS_GUI) $(OBJS_BLD) $(OBJS_DEB) $(OBJS_CUI) *.mod
 
