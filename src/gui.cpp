@@ -10,6 +10,7 @@
 #include <map>
 #include <numeric>
 #include <cmath>
+#include <filesystem>
 
 //For Mac
 #include <sstream>
@@ -3615,11 +3616,16 @@ public:
     printf("Start setSphere...\n");
     setSphere();
     
-    printf("Start praparat_init...\n");
-    praparat_init();
-    
     printf("Start glClearColor...\n");
     glClearColor(1.0, 1.0, 1.0, 1.0);
+        
+  }
+
+  void initializePraparat()
+  {
+    
+    printf("Start praparat_init...\n");
+    praparat_init();
     
     printf("Start get_field_size...\n");
     get_field_size(&FSx, &FSy, &FSz);
@@ -3630,7 +3636,7 @@ public:
     printf("FSx, FSy, FSz, FCx, FCy, FCz\n");
     printf("  %d, %d, %d, %d, %d, %d\n", FSx, FSy, FSz, FCx, FCy, FCz);
     
-  }
+  }  
   
   int Main() {
     char winTitle[256];
@@ -3692,8 +3698,10 @@ public:
     ImGui_ImplOpenGL2_Init();
     //< ----------------imgui------------------ >
     //< --------------------------------------- >
-        
     
+
+    bool showTargetDirDlgKey = true;
+    bool showControlWindow = false;
     bool showCellDetailsWindow = false;
 
 
@@ -3728,6 +3736,49 @@ public:
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
 
+      if (showTargetDirDlgKey)
+      {
+	
+	ImGui::Begin("Initial Window");                          
+	CURSOR_ON_ImGuiWINDOW = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
+						       ImGuiHoveredFlags_ChildWindows |
+						       ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	
+	if (ImGui::Button("Target Directory"))
+	{
+	  ImGuiFileDialog::Instance()->OpenDialog("TargetDirDlgKey", "Choose a Directory", nullptr, ".");
+	}
+
+        ImVec2 dialogMinSize = ImVec2(300.0, 150.0);
+	if (ImGuiFileDialog::Instance()->Display("TargetDirDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
+	{
+	  if (ImGuiFileDialog::Instance()->IsOk())
+	  {
+	    
+	    std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+	    std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+
+	    std::filesystem::path current_path = std::filesystem::current_path();
+	    std::cout << "Current path => " << current_path << std::endl;
+	    
+	    std::filesystem::current_path(filePath.c_str());
+	    
+	    current_path = std::filesystem::current_path();
+	    std::cout << "Move to => " << current_path << std::endl;
+
+	    initializePraparat();
+	    
+	    showTargetDirDlgKey = false;
+	    showControlWindow = true;
+	    
+	  }	  
+	  ImGuiFileDialog::Instance()->Close();
+	}
+	
+	ImGui::End();
+      }
+      
+      if (showControlWindow)
       {
 
 	ImGui::Begin("Control Window");                          

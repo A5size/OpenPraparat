@@ -3637,6 +3637,7 @@ public:
         
     
     bool showCellDetailsWindow = false;
+    ImVec2 dialogMinSize = ImVec2(300.0, 150.0);
     
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
@@ -3676,7 +3677,6 @@ public:
 	  ImGui::Text("MODE => Delete One Block Mode");
 	}
 
-
 	ImGui::Text("Read:");
 	
 	if (ImGui::Button("Cells"))
@@ -3694,11 +3694,8 @@ public:
 	  SCROLL_ACTIVE  = 0;
 	  SELECTION_MODE = 0;
 	}
-
-
 	
-
-	if (ImGuiFileDialog::Instance()->Display("ReadCellsDlgKey")) 
+	if (ImGuiFileDialog::Instance()->Display("ReadCellsDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3713,7 +3710,7 @@ public:
 	  SCROLL_ACTIVE = 1;
 	}
 	
-	if (ImGuiFileDialog::Instance()->Display("ChooseFieldDlgKey")) 
+	if (ImGuiFileDialog::Instance()->Display("ChooseFieldDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3826,7 +3823,7 @@ public:
 	  SELECTION_MODE = 0;
 	}
 	
-	if (ImGuiFileDialog::Instance()->Display("SaveCellsDlgKey")) 
+	if (ImGuiFileDialog::Instance()->Display("SaveCellsDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3841,7 +3838,7 @@ public:
 	  SCROLL_ACTIVE = 1;
 	}	
 
-	if (ImGuiFileDialog::Instance()->Display("SaveFieldDlgKey")) 
+	if (ImGuiFileDialog::Instance()->Display("SaveFieldDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
