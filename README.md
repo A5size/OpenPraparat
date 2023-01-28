@@ -69,7 +69,7 @@ Click the "Target Directory" button, and choose the current directory.
 ### praparat_gui
 
 #### Keys
-Here is a list of some of the keys and the corresponding operation they perform
+Here is a list of some of the keys and the corresponding operation they perform: 
 >W: Move forward <br>
 >A: Move left <br>
 >S: Move backward <br>
@@ -85,3 +85,5 @@ Here is a list of some of the keys and the corresponding operation they perform
 >O: Switch between day and night mode <br>
 >Q: Exit the program <br>
 
+#### Mouse
+Left-click to select cells, right-click and drag to move the viewpoint. 
