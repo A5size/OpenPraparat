@@ -57,7 +57,7 @@ Here is a list of some of the keys and the corresponding operation they perform:
 Left-click to select cells, right-click and drag to move the viewpoint. 
 
 
-## Example
+## Examples
 ```
 tar -zxvf examples.tar.gz 
 tree examples
