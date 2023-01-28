@@ -64,6 +64,14 @@ cd 02fix
 Click the "Target Directory" button, and choose the current directory. 
 
 
+## Operation Guide
 
+### praparat_gui
 
+#### Keys
+Here is a list of some of the keys and the corresponding operation they perform
+>W: Move forward
+A: Move left
+S: Move backward
+D: Move right
 
