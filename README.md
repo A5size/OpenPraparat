@@ -71,7 +71,7 @@ Click the "Target Directory" button, and choose the current directory.
 #### Keys
 Here is a list of some of the keys and the corresponding operation they perform
 >W: Move forward
-A: Move left
-S: Move backward
-D: Move right
+>A: Move left
+>S: Move backward
+>D: Move right
 
