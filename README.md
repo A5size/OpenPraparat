@@ -33,6 +33,7 @@ make all install
 ## Operation Guide
 
 ### praparat_gui
+This program launches the GUI to visualize the simulation. To start, click the "Target Directory" button and select the working directory where the input files are located.
 
 #### Keys
 Here is a list of some of the keys and the corresponding operation they perform: 
