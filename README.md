@@ -40,7 +40,9 @@ Here is a list of some of the keys and the corresponding operation they perform:
 >W: Move forward <br>
 >A: Move left <br>
 >S: Move backward <br>
->D: Move right <br>
+>D: Move right <br> 
+>Space: Move up
+>Shift: Move down
 >M: Start simulation <br>
 >P: Stop simulation <br>
 >H: Hide photon <br>
