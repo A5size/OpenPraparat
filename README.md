@@ -41,7 +41,7 @@ Here is a list of some of the keys and the corresponding operation they perform:
 >S: Move backward <br>
 >D: Move right <br> 
 >Space: Move up <br> 
->Shift: Move down <br> 
+>F: Move down <br> 
 >M: Start simulation <br>
 >P: Stop simulation <br>
 >H: Hide photon <br>
