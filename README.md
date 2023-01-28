@@ -70,8 +70,18 @@ Click the "Target Directory" button, and choose the current directory.
 
 #### Keys
 Here is a list of some of the keys and the corresponding operation they perform
->W: Move forward
->A: Move left
->S: Move backward
->D: Move right
+>W: Move forward <br>
+>A: Move left <br>
+>S: Move backward <br>
+>D: Move right <br>
+>M: Start simulation <br>
+>P: Stop simulation <br>
+>H: Hide photon <br>
+>C: Change the cell drawing style <br>
+>K: Change viewpoint <br>
+>R: Change the field drawing style <br>
+>Y: Take a screenshot <br>
+>V: Start recording (sequentially output images) <br>
+>O: Switch between day and night mode <br>
+>Q: Exit the program <br>
 
