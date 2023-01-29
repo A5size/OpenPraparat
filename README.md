@@ -8,10 +8,14 @@ OpenPraparat is a code that simulates an artificial life model presented in the 
 ## Install 
 
 ### On Ubuntu
+Open the terminal, and install the necessary packages using the following commands:
 ```
 sudo apt install libglu1-mesa-dev mesa-common-dev
 sudo apt install -y libglfw3 libglfw3-dev
+```
 
+Compile OpenPraparat using the following commands:
+```
 git clone https://github.com/A5size/OpenPraparat
 cd ./OpenPraparat/src
 
@@ -19,10 +23,14 @@ make all install
 ```
 
 ### On macOS
+Open the terminal, and install the necessary packages using the following commands:
 ```
 brew tap homebrew/versions
 brew install glfw3
+```
 
+Compile OpenPraparat using the following commands:
+```
 git clone https://github.com/A5size/OpenPraparat
 cd ./OpenPraparat/src
 
@@ -34,7 +42,7 @@ To compile OpenPraparat on Windows, you need to install MSYS2.
 The instructions for installing MSYS2 are omitted here.
 
 Once you have installed MSYS2, launch the mingw64.exe in MSYS2 
-and install the necessary packages using the following commands in the MSYS2 shell:
+and install the necessary packages using the following commands:
 ```
 pacman -Sy
 pacman -Su
