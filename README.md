@@ -29,6 +29,39 @@ cd ./OpenPraparat/src
 make all install
 ```
 
+### On Windows
+To compile OpenPraparat on Windows, you need to install MSYS2. 
+The instructions for installing MSYS2 are omitted here.
+
+Once you have installed MSYS2, launch the mingw64.exe in MSYS2 
+and install the necessary packages using the following commands in the MSYS2 shell:
+```
+pacman -Sy
+pacman -Su
+
+pacman -S mingw-w64-x86_64-gcc
+pacman -S make
+pacman -S git
+pacman -S mingw-w64-x86_64-pkg-config
+pacman -S mingw-w64-x86_64-glfw
+pacman -S mingw-w64-x86_64-gcc-fortran
+pacman -S mingw-w64-x86_64-gcc-libgfortran
+```
+
+Open the command prompt as an administrator and set the path: 
+```
+setx /M PATH "%PATH%;path\where\you\installed\msys64\mingw64\bin"
+```
+
+Launch mingw64.exe and compile OpenPraparat using the following commands: 
+```
+git clone https://github.com/A5size/OpenPraparat
+cd ./OpenPraparat/src
+
+make all install
+```
+
+
 ## Operation Guide
 
 ### praparat_gui
