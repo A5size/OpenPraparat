@@ -29,8 +29,8 @@ module praparat_module
     Integer :: FRAGMENT_INTERVAL_STEP = 1
     Integer, parameter :: FRAGMENT_MAX_LENGTH = 32
     
-    Character(len=1),  parameter :: P = '+'
-    Character(len=1),  parameter :: M = '-'
+    !Character(len=1),  parameter :: P = '+'
+    !Character(len=1),  parameter :: M = '-'
     Character(len=64), parameter :: CODES = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-'
 
     Double precision :: WORLD_DT = 0.01d0
