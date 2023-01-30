@@ -10,6 +10,7 @@ OpenPraparat is a code that simulates an artificial life model presented in the 
 ### On Ubuntu
 Open the terminal, and install the necessary packages using the following commands:
 ```
+sudo apt install build-essential gfortran
 sudo apt install libglu1-mesa-dev mesa-common-dev
 sudo apt install libglfw3 libglfw3-dev
 ```
@@ -25,6 +26,7 @@ make all install
 ### On macOS
 Open the terminal, and install the necessary packages using the following commands:
 ```
+brew install gcc
 brew install glfw3
 ```
 
