@@ -24,6 +24,9 @@ make all install
 ```
 
 ### On macOS
+To compile OpenPraparat on macOS, you need to install homebrew. 
+The instructions for installing homebrew are omitted here.
+
 Open the terminal, and install the necessary packages using the following commands:
 ```
 brew install gcc
