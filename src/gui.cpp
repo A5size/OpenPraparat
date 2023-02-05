@@ -3198,6 +3198,11 @@ public:
     {
 
       get_calc_cl(&index, &ID, &x, &y, &z, &r, &cr, &cg, &cb, &e, &sum_ccf, &itf, &oe, &iage);
+
+      if(SHOW_IT_FLAG==0 && itf==1)
+      {
+	continue;
+      }
       
       vl = (x - ex)*v[0] + (y - ey)*v[1] + (z - ez)*v[2];
       p[0] = ex + vl*v[0];

@@ -1164,8 +1164,8 @@ public:
       }
     }
   }
-  
-  int getIntersectedCellIndex(double ex, double ey, double ez, double* viewVec)
+
+  int getIntersectedCellIndex(double ex, double ey, double ez, double* viewVec, int SHOW_IT_FLAG)
   {
     int tindex=-1;
     double x, y, z;
@@ -1185,6 +1185,11 @@ public:
     {
 
       if(aliveFlagList[index]==0)
+      {
+	continue;
+      }
+      
+      if(SHOW_IT_FLAG==0 && cells[index].INFO_TRANS_F==1)
       {
 	continue;
       }
@@ -2737,9 +2742,6 @@ public:
 	SPHERE_POINT[row][col][0] = p[0];
 	SPHERE_POINT[row][col][1] = p[1];
 	SPHERE_POINT[row][col][2] = p[2];
-	printf("*1: %d, %d, %lf, %lf, %lf\n", row, col, p[0], p[1], p[2]);
-	printf("*2: %d, %d, %lf, %lf, %lf\n", row, col,
-	       SPHERE_POINT[row][col][0], SPHERE_POINT[row][col][1], SPHERE_POINT[row][col][2]);
 	col++;
 	phi += dphi;
       }
@@ -3463,7 +3465,7 @@ public:
     {
       if(SELECTION_MODE==1)
       {
-        CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
+        CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp, SHOW_IT_FLAG);
         if(MOTION_LEFT_BUTTON_FLAG==1 && CURRENT_SELECTED_CELL_INDEX!=-1)
         {
 	  AppCM.addSelectedCell(CURRENT_SELECTED_CELL_INDEX);
@@ -3471,11 +3473,10 @@ public:
 	  TRANSLATE_Y = 0.0;
 	  TRANSLATE_Z = 0.0;
         }
-        drawSelectedCell();
       }
       else if(SELECTION_MODE==2)
       {
-        CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
+        CURRENT_SELECTED_CELL_INDEX = AppCM.getIntersectedCellIndex(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp, SHOW_IT_FLAG);
         if(MOTION_LEFT_BUTTON_FLAG==1 && CURRENT_SELECTED_CELL_INDEX!=-1)
         {
 	  AppCM.removeSelectedCell(CURRENT_SELECTED_CELL_INDEX);
@@ -3483,19 +3484,18 @@ public:
 	  TRANSLATE_Y = 0.0;
 	  TRANSLATE_Z = 0.0;
         }
-        drawSelectedCell();
       }
       else if(SELECTION_MODE==3)
       {
         AppFM.detectNewCandidateBlock(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
         if(AppFM.newBlockFlag==1)
         {
-  	drawNewBlock();
-  	if(MOTION_LEFT_BUTTON_FLAG==1)
-  	{
-  	  MOTION_LEFT_BUTTON_FLAG = 0;
-  	  AppFM.addBlock();
-  	}
+	  drawNewBlock();
+	  if(MOTION_LEFT_BUTTON_FLAG==1)
+	  {
+	    MOTION_LEFT_BUTTON_FLAG = 0;
+	    AppFM.addBlock();
+	  }
         }
       }
       else if(SELECTION_MODE==4)
@@ -3503,14 +3503,19 @@ public:
         AppFM.detectBlockToBeDeleted(LOOKAT_EX, LOOKAT_EY, LOOKAT_EZ, e2mp);
         if(AppFM.blockToBeDeletedFlag==1)
         {
-  	drawBlockToBeDeleted();
-  	if(MOTION_LEFT_BUTTON_FLAG==1)
-  	{
-  	  MOTION_LEFT_BUTTON_FLAG = 0;
-  	  AppFM.removeBlock();
-  	}
+	  drawBlockToBeDeleted();
+	  if(MOTION_LEFT_BUTTON_FLAG==1)
+	  {
+	    MOTION_LEFT_BUTTON_FLAG = 0;
+	    AppFM.removeBlock();
+	  }
         }
       }
+    }
+
+    if(SELECTION_MODE==1 || SELECTION_MODE==2)
+    {
+      drawSelectedCell();
     }
   
   }
