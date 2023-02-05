@@ -3734,7 +3734,8 @@ public:
 
 	ImGui::Text("Selection:");
 
-	ImGui::Text("Number of selected cells = %ld", AppCM.selectedCellIndices.size());
+	int nosc = AppCM.selectedCellIndices.size();
+	ImGui::Text("Number of selected cells = %d", nosc);
 	
 	if (ImGui::Button("Select All"))
 	{
