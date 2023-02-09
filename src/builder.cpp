@@ -1833,7 +1833,7 @@ public:
 
   static int CAMERA_MODE;
   static const int SELECTION_MODE_MAX = 4;
-  static const int SHOW_CELL_MODE_MAX = 10;
+  static const int SHOW_CELL_MODE_MAX = 9;
   static const int SHOW_FIELD_MODE_MAX = 2;
   
   double SPHERE_POLE[2][3] = {0};
@@ -3259,9 +3259,6 @@ public:
 	}      
 	else if(SHOW_CELL_MODE==9)
 	{
-	}
-	else if(SHOW_CELL_MODE==10)
-	{
 	  if(i!=0 && next_max_age<age)
 	  {
 	    next_max_age = age;
@@ -3306,7 +3303,7 @@ public:
       MAX_ENERGY = next_max_energy;
     }
     
-    if(SHOW_CELL_MODE==10)
+    if(SHOW_CELL_MODE==9)
     {
       MAX_AGE = next_max_age;
     }
