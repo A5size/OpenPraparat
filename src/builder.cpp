@@ -1815,6 +1815,7 @@ public:
   int REC_FLAG = 0;
 
   static int SCROLL_ACTIVE;
+  static int KEY_ACTIVE;
   static int SELECTION_MODE;
   static int CURRENT_SELECTED_CELL_INDEX;
   bool CURSOR_ON_ImGuiWINDOW;
@@ -2072,6 +2073,13 @@ public:
     double LOOKAT_VX = 0.0;
     double LOOKAT_VY = 0.0;
     double LOOKAT_VZ = 0.0;
+
+
+    if(KEY_ACTIVE==0)
+    {
+      return;
+    }
+
     
     switch (key){
       
@@ -3814,6 +3822,7 @@ public:
 	{
 	  ImGuiFileDialog::Instance()->OpenDialog("SaveCellsDlgKey", "Save", ".*", ".");
 	  SCROLL_ACTIVE  = 0;
+	  KEY_ACTIVE     = 0;
 	  SELECTION_MODE = 0;
 	}
 
@@ -3823,6 +3832,7 @@ public:
 	{
 	  ImGuiFileDialog::Instance()->OpenDialog("SaveFieldDlgKey", "Save", ".*", ".");
 	  SCROLL_ACTIVE  = 0;
+	  KEY_ACTIVE     = 0;
 	  SELECTION_MODE = 0;
 	}
 	
@@ -3839,6 +3849,7 @@ public:
 	  
 	  ImGuiFileDialog::Instance()->Close();
 	  SCROLL_ACTIVE = 1;
+	  KEY_ACTIVE    = 1;
 	}	
 
 	if (ImGuiFileDialog::Instance()->Display("SaveFieldDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
@@ -3854,6 +3865,7 @@ public:
 	  
 	  ImGuiFileDialog::Instance()->Close();
 	  SCROLL_ACTIVE = 1;
+	  KEY_ACTIVE    = 1;
 	}
 
 	ImGui::End();
@@ -3999,6 +4011,7 @@ int App::SHOW_IT_FLAG = 1;
 int App::SHOW_FIELD_MODE = 0;
 int App::SHOW_CELL_MODE = 0;
 int App::SCROLL_ACTIVE = 1;
+int App::KEY_ACTIVE = 1;
 int App::SELECTION_MODE = 0;
 
 int App::CURRENT_SELECTED_CELL_INDEX = -1;
