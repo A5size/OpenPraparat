@@ -1246,6 +1246,7 @@ public:
   void resetSelectedCellIndices()
   {
     selectedCellIndices = std::vector<int>();
+    lastSelectedCellIndex = -1;
   }
   
   void addSelectedCell(int i)
@@ -1374,6 +1375,8 @@ public:
 	addSelectedCell(i);
       }
     }
+
+    lastSelectedCellIndex = -1;
     
   }
 
@@ -3517,6 +3520,10 @@ public:
         }
       }
     }
+    else
+    {
+      CURRENT_SELECTED_CELL_INDEX = -1;
+    }
 
     if(SELECTION_MODE==1 || SELECTION_MODE==2)
     {
@@ -3760,7 +3767,7 @@ public:
 	}
 
 	if (ImGui::Button("Select Connected Cell")) 
-	  AppCM.selectConnectedCell(AppCM.lastSelectedCellIndex);
+	  AppCM.selectConnectedCell(AppCM.lastSelectedCellIndex); 
 	
 	if (ImGui::Button("Invert Selection"))
 	{
@@ -3782,6 +3789,7 @@ public:
 	      }	      
 	    }
 	  }
+	  AppCM.lastSelectedCellIndex = -1;
 	}
 
 	if (ImGui::Button("Select All Photon"))
@@ -3801,8 +3809,11 @@ public:
 
 	ImGui::Text("Operation:");
 	
-	if (ImGui::Button("Kill Selected Cell")) 
+	if (ImGui::Button("Kill Selected Cell"))
+	{
+	  CURRENT_SELECTED_CELL_INDEX = -1;
 	  AppCM.killSelectedCell();
+	}
 
 	bool dxb = ImGui::SliderFloat("dx", &TRANSLATE_X, -10.0f, 10.0f); 
 	bool dyb = ImGui::SliderFloat("dy", &TRANSLATE_Y, -10.0f, 10.0f); 
