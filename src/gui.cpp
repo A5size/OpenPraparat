@@ -3654,9 +3654,17 @@ public:
     char winTitle[256];
     char filename[256];
     int sim_min_steps = 1;
-    int rec_min_steps = 100;
     int world_step = 0;
+    int pic_count = 0;
+    
+    int rec_min_steps;
+    int MAX_PICTURES;
+    char rec_min_steps_buf[32] = "10";
+    char MAX_PICTURES_buf[32]  = "1000";
 
+    sscanf(rec_min_steps_buf, "%d", &rec_min_steps);
+    sscanf(MAX_PICTURES_buf,  "%d", &MAX_PICTURES);
+    
     if (glfwInit() == GL_FALSE)
     {
       fprintf(stderr, "Initialization failed!\n");
@@ -3846,6 +3854,30 @@ public:
 	  set_mutation_param(&mra, &mc);
 	}
 	
+
+	ImGui::Spacing();
+	ImGui::Spacing();
+	
+	ImGui::Text("Export Setting");
+	ImGui::Text("  Sequential BMP File Output:");
+	ImGui::Text("    Every  ");
+	ImGui::SameLine();
+	ImGui::PushItemWidth(100);
+	ImGui::InputText("steps", rec_min_steps_buf, IM_ARRAYSIZE(rec_min_steps_buf));
+	ImGui::Text("    Maximum");
+	ImGui::SameLine();
+	ImGui::InputText("pictures", MAX_PICTURES_buf, IM_ARRAYSIZE(MAX_PICTURES_buf));
+
+	ImGui::Text("    %d / %d", pic_count, MAX_PICTURES);
+	ImGui::SameLine();	
+	if (ImGui::Button("Set"))
+	{
+	  sscanf(rec_min_steps_buf, "%d", &rec_min_steps);
+	  sscanf(MAX_PICTURES_buf,  "%d", &MAX_PICTURES);
+	}
+
+	
+	
 	ImGui::End();
       }
       
@@ -4032,6 +4064,11 @@ public:
 		     GL_UNSIGNED_BYTE,
 		     pixel_data);
 	WriteBitmap(filename, pixel_data, WIN_WIDTH_PIXELx4, WIN_HEIGHT_PIXEL);
+	pic_count++;
+	if(MAX_PICTURES<=pic_count)
+	{
+	  REC_FLAG = 0;
+	}
 	free(pixel_data);
 	step(&rec_min_steps);
       }
