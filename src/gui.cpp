@@ -2346,6 +2346,7 @@ public:
       
     case 'm':
     case 'M':
+      REC_FLAG  = 0;
       MOVE_FLAG = 1;
       break;
       
@@ -3653,7 +3654,7 @@ public:
     char winTitle[256];
     char filename[256];
     int sim_min_steps = 1;
-    int rec_min_steps = 1;
+    int rec_min_steps = 100;
     int world_step = 0;
 
     if (glfwInit() == GL_FALSE)
