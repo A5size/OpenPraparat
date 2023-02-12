@@ -3100,10 +3100,14 @@ contains
         stop        
     end subroutine emergency_stop
 
-    subroutine temporary_export() bind(c)
-        write(*, *) 'TEMPORARY EXPORT IS CALLED!!!!'
+    subroutine temporary_export(n) bind(c)
+        Character(len=128) :: filename
+        Integer(c_int) :: n
+        !write(*, *) 'TEMPORARY EXPORT IS CALLED!!!!'
         !call write_cells('./temporary/data')
-        call write_cells_into_one('./tmp_cells_file')
+        !call write_cells_into_one('./tmp_cells_file')
+        write (filename, '("./cells_file", i0)') n
+        call write_cells_into_one(trim(adjustl(filename)))
     end subroutine temporary_export
     
     subroutine init_calculation_cell_list_first()

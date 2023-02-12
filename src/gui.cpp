@@ -74,7 +74,7 @@ extern "C" {
   void step(int *n);
   //extern void switch_the_sun(void);
   void switch_daynight(void);
-  void temporary_export(void);
+  void temporary_export(int *n);
   void read_setting(void);
   void get_trans_interval_step(int *n);
   //extern void get_age_count(int *n, array a);
@@ -2363,6 +2363,7 @@ public:
     case 'p':
     case 'P':
       MOVE_FLAG = 0;
+      REC_FLAG  = 0;
       break;
       
     case 'i':
@@ -2417,7 +2418,15 @@ public:
       
     case 't':
     case 'T':
-      temporary_export();
+      if(action==1)
+      {
+	MOVE_FLAG = 0;
+	REC_FLAG  = 0;
+	int world_step = 0;
+	get_world_step(&world_step);
+	printf("Saved in cells_file%d \n", world_step);
+	temporary_export(&world_step);
+      }
       break;
       
     case 'u':
@@ -2447,8 +2456,8 @@ public:
 
     case 'v':
     case 'V':
-      REC_FLAG = 1;
       MOVE_FLAG = 0;
+      REC_FLAG = 1;
       break;
       
     case ',':
