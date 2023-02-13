@@ -126,3 +126,85 @@ examples
         ├── input
         └── seed.ini
 ```
+
+## inputの説明 (Sorry for the Japanese!)
+```
+!
+!各パラメータの説明を書いていますが、
+!そのせいで、このまま読み込ませると計算が落ちます。
+!使うときは、「!」から始まるコメントを消してください。
+!
+
+&cycle
+  !コンソール版用の設定
+  !10000回に1回セルの状態を保存し、それを5回行う。
+  out_cycle = 5
+  in_cycle  = 10000
+/
+
+&world
+  !物理演算用の設定
+  WORLD_DT          = 0.01d0
+  WORLD_G           = 5.0d0
+  BLOCK_EMD_FORCE_K = 2000.0d0
+  BLOCK_EMD_FORCE_R = 10.0d0
+  CELL_EMD_FORCE_K  = 200.0d0
+  CELL_EMD_FORCE_R  = 4.0d0
+  AIR_RESISTANCE_K  = 0.01d0
+
+　!フィールドの設定
+  FIELD_INIT_FLAG   = 0        ! 0:read, 1:flat, 2:random, 3:maze
+  FIELD_ADJUST_FLAG = 0
+  FIELD_SIZE_X      = 32
+  FIELD_SIZE_Y      = 64
+  FIELD_SIZE_Z      = 32
+  FIELD_CENTER_X    = 0
+  FIELD_CENTER_Y    = 16
+  FIELD_CENTER_Z    = 0
+  SUN_INIT_FLAG     = 1
+  DISTANCE2SUN      = 30.0d0   !地上から太陽までの距離
+  SUM_LIMIT_NUM     = 5000     !光を除くセル数が5000を超えたら太陽光を止める
+  SUN_CYCLE         = 1000.0d0 !太陽が何ステップで1往復するか
+  OUT_INTERVAL_STEP = 1
+  DEPTH_LIMIT       = 3
+  CONTACT_AREA_CORR = 0.2d0
+/
+
+&cell
+  !セルの設定
+  CELLS_INIT_FLAG             = 1      ! 0:read1, 1:read2, 2:create, 3:read and create
+  EVERY_STEP_COST_UPDATE_FLAG = .TRUE.
+  EVERY_STEP_COST_E           = 0.01d0
+  EVERY_STEP_COST_A           = 1.27d0
+  EVERY_STEP_COST_D           = 2.0d-8
+  TARGET_CELLS_NUM            = 4000
+  TRANS_INTERVAL_STEP         = 200
+  RESET_INTERVAL_STEP         = 5
+  MUTATION_RATE_FLAG          = 0      ! 0:mr=MRA, 1:circle, 2:liner, 3:sin
+  MUTATION_DIVISION_RATE      = 0.5d0
+  MUTATION_RATE_AMP           = 0.0d0  !突然変異確率P_A
+  MUTATION_COEFF4EXPANSION    = 0.0d0  !突然変異確率P_Bの係数C(P_B = C*P_A)
+  NUMBER_OF_CELL              = 15000
+  ABS_KEEP_NUM                = 100    !セル数がこの数を下回ると、エネルギー消費が止まる。
+  ECEOL_E2L                   = 1.0d0  !エネルギーから光への変換効率
+  ECEOL_L2E 　　　　　　　　　= 1.0d0  !光からエネルギーへの変換効率
+  ECEOLR                      = 0.8d0  !赤の光から得られるエネルギーの効率
+  ECEOLG                      = 0.2d0  !緑の光から得られるエネルギーの効率
+  ECEOLB                      = 0.8d0  !青の光から得られるエネルギーの効率
+  ECEOE                       = 1.0d0  ! Energy Conversion Efficiency Of Eat
+  ENERGY_TRANSIT_FLAG         = 4
+  GENE_COST_C                 = 0.5d0
+  BDRC                        = 0.4d0  ! セルの最大半径を決定する(1.0d0まで)
+  MIN_R                       = 0.1d0
+  SPRING_LIMIT_C              = 1.10d0
+  SPRING_CATCH_C              = 1.95d0
+  SPRING_BREAK_C              = 2.00d0
+  THRESHOLD_LIGHT             = 0.2d0
+  RATE_OF_VARI_S              = 0.1d0  ! 結合強度後進パラメータΔs
+/
+
+&system
+  RANDOM_SEED_FLAG = 2 ! 0:no set, 1:read, 2:random
+/
+
+```
