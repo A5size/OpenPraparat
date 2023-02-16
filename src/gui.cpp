@@ -3546,8 +3546,11 @@ public:
 
     int renderBufferWidth, renderBufferHeight;
     glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
-    xpos = (renderBufferWidth/WIN_WIDTH)*xpos;
-    ypos = (renderBufferHeight/WIN_HEIGHT)*ypos;
+    if (WIN_WIDTH > 0 && WIN_HEIGHT > 0)
+    {
+      xpos = (renderBufferWidth/WIN_WIDTH)*xpos;
+      ypos = (renderBufferHeight/WIN_HEIGHT)*ypos;
+    }
     
     double worldX, worldY, worldZ;
     GLint viewport[4];
