@@ -1308,7 +1308,7 @@ public:
 
   void selectConnectedCell(int index)
   {
-    int group = groupList[index];
+    int group = 0;
     int connectedCount = 1;
     int preConnectedCount = 1;
     std::unordered_map<int, int> id2indexDic;
@@ -1319,6 +1319,8 @@ public:
     {
       return;
     }
+
+    group = groupList[index];
     
     for(long unsigned int i=0; i<cells.size(); i++)
     {
