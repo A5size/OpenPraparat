@@ -1315,6 +1315,11 @@ public:
     std::unordered_map<int, int> countDic;
     std::unordered_map<int, int> countDic_;
 
+    if(index<0)
+    {
+      return;
+    }
+    
     for(long unsigned int i=0; i<cells.size(); i++)
     {
       if(groupList[i]==group)
