@@ -530,48 +530,129 @@ contains
     end function dir_name
 
     !https://qiita.com/aisha/items/c41c09b0587ba6503733
+    !subroutine makedirs(outdir)
+    !    character(len=*), intent(in) :: outdir
+    !    character(len=256) command
+    !    write(command, *) 'if [ ! -d ', trim(outdir), ' ]; then mkdir -p ', trim(outdir), '; fi'
+    !    write(*, *) trim(command)
+    !    call system(command)
+    !end subroutine makedirs
+    !
+    !subroutine removedirs(outdir)
+    !    character(len=*), intent(in) :: outdir
+    !    character(len=256) command
+    !    write(command, *) 'if [ -d ', trim(outdir), ' ]; then rm -r ', trim(outdir), '; fi'
+    !    write(*, *) trim(command)
+    !    call system(command)
+    !end subroutine removedirs
+    !
+    !subroutine tardirs(outdir)
+    !    character(len=*), intent(in) :: outdir
+    !    character(len=256) command
+    !    write(command, *) 'if [ -d ', trim(outdir), ' ]; then tar -zcvf ', &
+    !         trim(adjustl(outdir))//'.tar.gz ', trim(outdir), '; fi'
+    !    write(*, *) trim(command)
+    !    call system(command)
+    !end subroutine tardirs
+    !
+    !subroutine removefile(outfile)
+    !    character(len=*), intent(in) :: outfile
+    !    character(len=256) command
+    !    write(command, *) 'if [ -f ', trim(outfile), ' ]; then rm ', trim(outfile), '; fi'
+    !    write(*, *) trim(command)
+    !    call system(command)
+    !end subroutine removefile
+    !
+    !subroutine tarfile(outfile)
+    !    character(len=*), intent(in) :: outfile
+    !    character(len=256) command
+    !    write(command, *) 'if [ -f ', trim(outfile), ' ]; then tar -zcvf ', &
+    !         trim(adjustl(outfile))//'.tar.gz ', trim(outfile), '; fi'
+    !    write(*, *) trim(command)
+    !    call system(command)
+    !end subroutine tarfile
+
+
+
+
+    !https://qiita.com/aisha/items/c41c09b0587ba6503733
     subroutine makedirs(outdir)
-        character(len=*), intent(in) :: outdir
-        character(len=256) command
-        write(command, *) 'if [ ! -d ', trim(outdir), ' ]; then mkdir -p ', trim(outdir), '; fi'
-        write(*, *) trim(command)
-        call system(command)
+      character(len=*), intent(in) :: outdir
+      character(len=256) command
+      ! Check if the OS is Windows
+#ifdef _WIN64
+      write(command, *) 'if not exist "', trim(outdir), '" mkdir "', trim(outdir), '"'
+#else
+      write(command, *) 'if [ ! -d ', trim(outdir), ' ]; then mkdir -p ', trim(outdir), '; fi'
+#endif
+      write(*, *) trim(command)
+      call system(command)
     end subroutine makedirs
-
+    
     subroutine removedirs(outdir)
-        character(len=*), intent(in) :: outdir
-        character(len=256) command
-        write(command, *) 'if [ -d ', trim(outdir), ' ]; then rm -r ', trim(outdir), '; fi'
-        write(*, *) trim(command)
-        call system(command)
+      character(len=*), intent(in) :: outdir
+      character(len=256) command
+      ! Check if the OS is Windows
+#ifdef _WIN64
+      write(command, *) 'if exist "', trim(outdir), '" rmdir /s /q "', trim(outdir), '"'
+#else
+      write(command, *) 'if [ -d ', trim(outdir), ' ]; then rm -r ', trim(outdir), '; fi'
+#endif
+      write(*, *) trim(command)
+      call system(command)
     end subroutine removedirs
-
+    
     subroutine tardirs(outdir)
-        character(len=*), intent(in) :: outdir
-        character(len=256) command
-        write(command, *) 'if [ -d ', trim(outdir), ' ]; then tar -zcvf ', &
-             trim(adjustl(outdir))//'.tar.gz ', trim(outdir), '; fi'
-        write(*, *) trim(command)
-        call system(command)
+      character(len=*), intent(in) :: outdir
+      character(len=256) command
+      ! Check if the OS is Windows
+#ifdef _WIN64
+      write(command, *) 'if exist "', trim(outdir), '" tar -zcvf "', &
+           trim(adjustl(outdir))//'.tar.gz" "', trim(outdir), '"'
+#else
+      write(command, *) 'if [ -d ', trim(outdir), ' ]; then tar -zcvf ', &
+           trim(adjustl(outdir))//'.tar.gz ', trim(outdir), '; fi'
+#endif
+      write(*, *) trim(command)
+      call system(command)
     end subroutine tardirs
-
+    
     subroutine removefile(outfile)
-        character(len=*), intent(in) :: outfile
-        character(len=256) command
-        write(command, *) 'if [ -f ', trim(outfile), ' ]; then rm ', trim(outfile), '; fi'
-        write(*, *) trim(command)
-        call system(command)
+      character(len=*), intent(in) :: outfile
+      character(len=256) command
+      ! Check if the OS is Windows
+#ifdef _WIN64
+      write(command, *) 'if exist "', trim(outfile), '" del "', trim(outfile), '"'
+#else
+      write(command, *) 'if [ -f ', trim(outfile), ' ]; then rm ', trim(outfile), '; fi'
+#endif
+      write(*, *) trim(command)
+      call system(command)
     end subroutine removefile
-
+    
     subroutine tarfile(outfile)
-        character(len=*), intent(in) :: outfile
-        character(len=256) command
-        write(command, *) 'if [ -f ', trim(outfile), ' ]; then tar -zcvf ', &
-             trim(adjustl(outfile))//'.tar.gz ', trim(outfile), '; fi'
-        write(*, *) trim(command)
-        call system(command)
+      character(len=*), intent(in) :: outfile
+      character(len=256) command
+      ! Check if the OS is Windows
+#ifdef _WIN64
+      write(command, *) 'if exist "', trim(outfile), '" tar -zcvf "', &
+           trim(adjustl(outfile))//'.tar.gz" "', trim(outfile), '"'
+#else
+      write(command, *) 'if [ -f ', trim(outfile), ' ]; then tar -zcvf ', &
+           trim(adjustl(outfile))//'.tar.gz ', trim(outfile), '; fi'
+#endif
+      write(*, *) trim(command)
+      call system(command)
     end subroutine tarfile
+    
+    
+    
 
+
+
+
+
+    
     subroutine sun_init(id)
         Integer :: id
 
