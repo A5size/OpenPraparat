@@ -85,6 +85,9 @@ ifeq ($(OS), Windows_NT)
 	FFLAGS_GUI += -fmax-stack-var-size=100000
 	FFLAGS_DEB += -fmax-stack-var-size=100000
 	FFLAGS_CUI += -fmax-stack-var-size=100000
+	FFLAGS_GUI += -D_WIN64
+	FFLAGS_DEB += -D_WIN64
+	FFLAGS_CUI += -D_WIN64
 endif
 
 ##---------------------------------------------------------------------
