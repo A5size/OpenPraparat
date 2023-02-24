@@ -1909,13 +1909,13 @@ public:
   CellManager AppCM;
   FieldManager AppFM;
   
-  int FSx;
-  int FSy;
-  int FSz;
+  int FSx = 0;
+  int FSy = 0;
+  int FSz = 0;
   
-  int FCx;
-  int FCy;
-  int FCz;
+  int FCx = 0;
+  int FCy = 0;
+  int FCz = 0;
   
   int NumberOfCell;
   
@@ -3138,48 +3138,110 @@ public:
   void drawSolidField()
   {
     int c, w, length;
-    double x, y, z, cr, cg, cb;
-    
-    get_block_list_length(&length);
-    
-    for(c=0;c<length;c++)
+    double x, y, z, cr, cg, cb, cc;
+
+    std::vector<std::vector<double>> hmap(FSx, std::vector<double>(FSz));
+    for(int i=0; i<FSx; i++)
     {
-      get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
- 
-      if(SHOW_FIELD_MODE==0)
+      for(int k=0; k<FSz; k++)
       {
+	hmap[i][k] = -FCy;
+      }
+    }
+
+    get_block_list_length(&length);
+
+    if(SHOW_FIELD_MODE==0)
+    {
+
+      for(c=0;c<length;c++)
+      {
+	get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+
 	if(w==1)
 	{
 	  drawSolidCube(x, y, z, 1.0, 1.0, 1.0, 0.99, 0.99, 0.99);
 	}
+
       }
-      else if(SHOW_FIELD_MODE==1)
+    }
+    else if(SHOW_FIELD_MODE==1)
+    {
+
+      for(c=0;c<length;c++)
       {
+	get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	
 	if(w==1)
 	{
 	  drawSolidCube(x, y, z, 1.0, 1.0, 1.0, 0.1, 0.1, 0.1);
 	}
-      }
-      else if(SHOW_FIELD_MODE==2)
-      {
 
+      }
+    }
+    else if(SHOW_FIELD_MODE==2)
+    {
+
+      for(c=0;c<length;c++)
+      {
+	get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	
 	if(w==1)
 	{
-	  if(y<0.0)
+	  int i, k; 
+	  i = round(x + FSx/2 - FCx);
+	  k = round(z + FSz/2 - FCz);
+	  if(hmap[i][k]<y)
 	  {
-	    drawSolidCube(x, y, z, 1.0, 1.0, 1.0, cr, cg, cb);
+	    hmap[i][k] = y - 0.5;
 	  }
-	  else
+	}
+      }
+	
+      for(c=0;c<length;c++)
+      {
+	get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	
+	if(w==1)
+	{
+
+	  int i, k;
+	  
+	  i = round(x + FSx/2 - FCx);
+	  k = round(z + FSz/2 - FCz);
+
+	  if(hmap[i][k]<y)
 	  {
-	    drawSolidCube(x, -1.0, z, 1.0, 1.0, 1.0, cr, cg, cb);
+	    //c = 0.5+0.5*(FIELD_CENTER_Y+y)/FIELD_SIZE_Y;
+	    cc = 0.25+0.75*(FCy+y)/32.0;
+	    //cc = (FIELD_CENTER_Y+y)/128.0;
+	    if(cc<0.0)
+	    {
+	      cc = 0.0;
+	    }
+	    else if(1.0<cc)
+	    {
+	      cc = 1.0;
+	    }
+	    drawSolidCube(x, -1.0, z, 1.0, 1.0, 1.0, cc, cc, cc);
+	  
 	  }
+
 	}
 	
       }
-      else
-      {	
+      
+    }
+    else
+    {
+      for(c=0;c<length;c++)
+      {
+	get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	drawSolidCube(x, y, z, 1.0, 1.0, 1.0, cr, cg, cb);
       }
     }
+
+    
   }
 
   int getIntersectedCellId(double ex, double ey, double ez, double* viewVec)
@@ -3887,9 +3949,10 @@ public:
       if (showCellDetailsWindow)
       {
 	ImGui::Begin("Cell Details Window", &showCellDetailsWindow);
-	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW || ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
-										ImGuiHoveredFlags_ChildWindows |
-										ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW ||
+	  ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
+				 ImGuiHoveredFlags_ChildWindows |
+				 ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
 	if(CURRENT_SELECTED_CELL_ID!=-1)
 	{

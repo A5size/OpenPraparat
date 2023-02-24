@@ -177,6 +177,19 @@ public:
 	  std::istringstream iss5(line);
 	  iss5 >> Field[i][j][k].ar >> Field[i][j][k].ag >> Field[i][j][k].ab;
 
+	  
+	}
+      }
+    }
+
+
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	for(int k=0; k<FIELD_SIZE_Z; k++)
+	{
+
 	  if(Field[i][j][k].wall!=0)
 	  {
 	    std::cout << Field[i][j][k].wall << ", "
@@ -189,11 +202,11 @@ public:
 				  Field[i][j][k].cr, Field[i][j][k].cg, Field[i][j][k].cb,
 				  Field[i][j][k].ar, Field[i][j][k].ag, Field[i][j][k].ab});
 	  }
-	  
+
 	}
       }
     }
-
+    
     readFlag = 1;
     
   }
@@ -294,17 +307,6 @@ public:
     readFlag = 1;
     
   }
-
-
-
-
-
-
-
-
-
-
-
 
 
   void create_random_field(int FIELD_SIZE_X_, int FIELD_SIZE_Y_, int FIELD_SIZE_Z_,
@@ -459,6 +461,32 @@ public:
 	for(int k=0; k<FIELD_SIZE_Z; k++)
 	{
 
+	  if(i==0 || i==(FIELD_SIZE_X-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	  if(j==0 || j==(FIELD_SIZE_Y-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	  if(k==0 || k==(FIELD_SIZE_Z-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	}
+      }
+    }
+    
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	for(int k=0; k<FIELD_SIZE_Z; k++)
+	{
+	  
 	  if(Field[i][j][k].wall!=0)
 	  {
 	    std::cout << Field[i][j][k].wall << ", "
@@ -2157,13 +2185,13 @@ public:
   CellManager AppCM;
   FieldManager AppFM;
   
-  int FSx;
-  int FSy;
-  int FSz;
-  
-  int FCx;
-  int FCy;
-  int FCz;
+  //int FSx;
+  //int FSy;
+  //int FSz;
+  //
+  //int FCx;
+  //int FCy;
+  //int FCz;
   
   int NumberOfCell;
   
@@ -3357,62 +3385,156 @@ public:
     
   }
   
-  
+
   void drawSolidField()
   {
     int c, w, length;
-    double x, y, z, cr, cg, cb;
+    double x, y, z, cr, cg, cb, cc;
+
+    int FIELD_SIZE_X = AppFM.FIELD_SIZE_X;
+    int FIELD_SIZE_Y = AppFM.FIELD_SIZE_Y;
+    int FIELD_SIZE_Z = AppFM.FIELD_SIZE_Z;
+    int FIELD_CENTER_X = 0;
+    int FIELD_CENTER_Y = FIELD_SIZE_Y/4;
+    int FIELD_CENTER_Z = 0;
+
+    std::vector<std::vector<double>> hmap(FIELD_SIZE_X, std::vector<double>(FIELD_SIZE_Z));
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int k=0; k<FIELD_SIZE_Z; k++)
+      {
+	hmap[i][k] = -FIELD_CENTER_Y;
+      }
+    }
     
     //get_block_list_length(&length);
     length = AppFM.block_list.size();
-    
-    for(c=0;c<length;c++)
+
+    if(SHOW_FIELD_MODE==0)
     {
-      //get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
-      w  = AppFM.block_list[c].wall;
-      x  = AppFM.block_list[c].x;
-      y  = AppFM.block_list[c].y;
-      z  = AppFM.block_list[c].z;
-      cr = AppFM.block_list[c].cr;
-      cg = AppFM.block_list[c].cg;
-      cb = AppFM.block_list[c].cb;
- 
-      if(SHOW_FIELD_MODE==0)
+
+      for(c=0;c<length;c++)
       {
+	//get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	w  = AppFM.block_list[c].wall;
+	x  = AppFM.block_list[c].x;
+	y  = AppFM.block_list[c].y;
+	z  = AppFM.block_list[c].z;
+	cr = AppFM.block_list[c].cr;
+	cg = AppFM.block_list[c].cg;
+	cb = AppFM.block_list[c].cb;
+
 	if(w==1)
 	{
 	  drawSolidCube(x, y, z, 1.0, 1.0, 1.0, 0.99, 0.99, 0.99);
 	}
+
       }
-      else if(SHOW_FIELD_MODE==1)
+    }
+    else if(SHOW_FIELD_MODE==1)
+    {
+
+      for(c=0;c<length;c++)
       {
+	//get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	w  = AppFM.block_list[c].wall;
+	x  = AppFM.block_list[c].x;
+	y  = AppFM.block_list[c].y;
+	z  = AppFM.block_list[c].z;
+	cr = AppFM.block_list[c].cr;
+	cg = AppFM.block_list[c].cg;
+	cb = AppFM.block_list[c].cb;
+	
 	if(w==1)
 	{
 	  drawSolidCube(x, y, z, 1.0, 1.0, 1.0, 0.1, 0.1, 0.1);
 	}
-      }
-      else if(SHOW_FIELD_MODE==2)
-      {
 
+      }
+    }
+    else if(SHOW_FIELD_MODE==2)
+    {
+
+      for(c=0;c<length;c++)
+      {
+	w  = AppFM.block_list[c].wall;
+	x  = AppFM.block_list[c].x;
+	y  = AppFM.block_list[c].y;
+	z  = AppFM.block_list[c].z;
 	if(w==1)
 	{
-	  if(y<0.0)
+	  int i, k; 
+	  i = round(x + FIELD_SIZE_X/2 - FIELD_CENTER_X);
+	  k = round(z + FIELD_SIZE_Z/2 - FIELD_CENTER_Z);
+	  if(hmap[i][k]<y)
 	  {
-	    drawSolidCube(x, y, z, 1.0, 1.0, 1.0, cr, cg, cb);
+	    hmap[i][k] = y - 0.5;
 	  }
-	  else
+	}
+      }
+	
+      for(c=0;c<length;c++)
+      {
+	//get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	w  = AppFM.block_list[c].wall;
+	x  = AppFM.block_list[c].x;
+	y  = AppFM.block_list[c].y;
+	z  = AppFM.block_list[c].z;
+	cr = AppFM.block_list[c].cr;
+	cg = AppFM.block_list[c].cg;
+	cb = AppFM.block_list[c].cb;
+	
+	if(w==1)
+	{
+
+	  int i, k;
+	  
+	  i = round(x + FIELD_SIZE_X/2 - FIELD_CENTER_X);
+	  //j = round(y + FIELD_SIZE_Y/2 - FIELD_CENTER_Y);
+	  k = round(z + FIELD_SIZE_Z/2 - FIELD_CENTER_Z);
+
+	  if(hmap[i][k]<y)
 	  {
-	    drawSolidCube(x, -1.0, z, 1.0, 1.0, 1.0, cr, cg, cb);
+	    //c = 0.5+0.5*(FIELD_CENTER_Y+y)/FIELD_SIZE_Y;
+	    cc = 0.25+0.75*(FIELD_CENTER_Y+y)/32.0;
+	    //cc = (FIELD_CENTER_Y+y)/128.0;
+	    if(cc<0.0)
+	    {
+	      cc = 0.0;
+	    }
+	    else if(1.0<cc)
+	    {
+	      cc = 1.0;
+	    }
+	    drawSolidCube(x, -1.0, z, 1.0, 1.0, 1.0, cc, cc, cc);
+	  
 	  }
+
 	}
 	
       }
-      else
-      {	
+      
+    }
+    else
+    {
+      for(c=0;c<length;c++)
+      {
+	//get_block_list(&c, &w, &x, &y, &z, &cr, &cg, &cb);
+	w  = AppFM.block_list[c].wall;
+	x  = AppFM.block_list[c].x;
+	y  = AppFM.block_list[c].y;
+	z  = AppFM.block_list[c].z;
+	cr = AppFM.block_list[c].cr;
+	cg = AppFM.block_list[c].cg;
+	cb = AppFM.block_list[c].cb;
+
+	drawSolidCube(x, y, z, 1.0, 1.0, 1.0, cr, cg, cb);
       }
     }
+
   }
 
+  
   void drawCell()
   {
     int si, i, sum_ccf, itf;
