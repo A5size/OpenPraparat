@@ -56,9 +56,9 @@ public:
   int readFlag = 0;
   
   int CELL_CAPACITY_OF_BLOCK;
-  int FIELD_SIZE_X;
-  int FIELD_SIZE_Y;
-  int FIELD_SIZE_Z; 
+  int FIELD_SIZE_X = 0;
+  int FIELD_SIZE_Y = 0;
+  int FIELD_SIZE_Z = 0; 
  
   struct Map {
     int wall;
