@@ -655,66 +655,69 @@ contains
       Integer :: i, j, k
       Integer :: write_flag = 0
 
-        FIELD(:, :, :)%wall = 0
-        FIELD(:, :, :)%NOC = 0
-        FIELD(:, :, :)%cr = 0.0d0
-        FIELD(:, :, :)%cg = 0.0d0
-        FIELD(:, :, :)%cb = 0.0d0
-        FIELD(:, :, :)%ar = 0.5d0
-        FIELD(:, :, :)%ag = 0.5d0
-        FIELD(:, :, :)%ab = 0.5d0
+      if(FIELD_INIT_FLAG/=0) then
+         allocate(FIELD(FIELD_SIZE_X, FIELD_SIZE_Y, FIELD_SIZE_Z))
+      
+         FIELD(:, :, :)%wall = 0
+         FIELD(:, :, :)%NOC = 0
+         FIELD(:, :, :)%cr = 0.0d0
+         FIELD(:, :, :)%cg = 0.0d0
+         FIELD(:, :, :)%cb = 0.0d0
+         FIELD(:, :, :)%ar = 0.5d0
+         FIELD(:, :, :)%ag = 0.5d0
+         FIELD(:, :, :)%ab = 0.5d0
 
-        if(FIELD_INIT_FLAG==0) then
-           write(*, *) 'Read field from ./field.d'
-           call read_field('./field.d')
-        else if(FIELD_INIT_FLAG==1) then
-           write(*, *) 'Create field as flat'
-           call create_flat_field()
-           write_flag = 1
-        else if(FIELD_INIT_FLAG==2) then
-           write(*, *) 'Create field as random'
-           call create_random_field(4)
-           write_flag = 1
-        else if(FIELD_INIT_FLAG==3) then
-           write(*, *) 'Create field as maze'
-           call create_maze_field_w()
-           write_flag = 1
-        else
-           write(*, *) "FIELD_INIT_FLAG should be a number from 0 to 3."
-           write(*, *) "0 : Read"
-           write(*, *) "1 : Flat"
-           write(*, *) "2 : Random"
-           write(*, *) "3 : Maze"
-           stop
-        end if
+         write_flag = 1
+      end if
 
-        FIELD(1, :, :)%wall = 2
-        FIELD(FIELD_SIZE_X, :, :)%wall = 2
-        FIELD(:, 1, :)%wall = 2
-        FIELD(:, FIELD_SIZE_Y, :)%wall = 2
-        FIELD(:, :, 1)%wall = 2
-        FIELD(:, :, FIELD_SIZE_Z)%wall = 2
-
-        FIELD_TOP = 0.0d0
-        Do i=1, FIELD_SIZE_X
-            Do j=1, FIELD_SIZE_Y
-                Do k=1, FIELD_SIZE_Z
-                    FIELD(i,j,k)%x = dble(i - FIELD_SIZE_X/2 + FIELD_CENTER_X) - 1.0d0
-                    FIELD(i,j,k)%y = dble(j - FIELD_SIZE_Y/2 + FIELD_CENTER_Y) - 1.0d0
-                    FIELD(i,j,k)%z = dble(k - FIELD_SIZE_Z/2 + FIELD_CENTER_Z) - 1.0d0
-                    if(FIELD(i, j, k)%wall==1 .and. FIELD_TOP<FIELD(i,j,k)%y) then
-                       FIELD_TOP = FIELD(i,j,k)%y
-                    end if
-                end Do
+      if(FIELD_INIT_FLAG==0) then
+         write(*, *) 'Read field from ./field.d'
+         call read_field('./field.d')
+      else if(FIELD_INIT_FLAG==1) then
+         write(*, *) 'Create field as flat'
+         call create_flat_field()
+      else if(FIELD_INIT_FLAG==2) then
+         write(*, *) 'Create field as random'
+         call create_random_field(4)
+      else if(FIELD_INIT_FLAG==3) then
+         write(*, *) 'Create field as maze'
+         call create_maze_field_w()
+      else
+         write(*, *) "FIELD_INIT_FLAG should be a number from 0 to 3."
+         write(*, *) "0 : Read"
+         write(*, *) "1 : Flat"
+         write(*, *) "2 : Random"
+         write(*, *) "3 : Maze"
+         stop
+      end if
+      
+      FIELD(1, :, :)%wall = 2
+      FIELD(FIELD_SIZE_X, :, :)%wall = 2
+      FIELD(:, 1, :)%wall = 2
+      FIELD(:, FIELD_SIZE_Y, :)%wall = 2
+      FIELD(:, :, 1)%wall = 2
+      FIELD(:, :, FIELD_SIZE_Z)%wall = 2
+      
+      FIELD_TOP = 0.0d0
+      Do i=1, FIELD_SIZE_X
+         Do j=1, FIELD_SIZE_Y
+            Do k=1, FIELD_SIZE_Z
+               FIELD(i,j,k)%x = dble(i - FIELD_SIZE_X/2 + FIELD_CENTER_X) - 1.0d0
+               FIELD(i,j,k)%y = dble(j - FIELD_SIZE_Y/2 + FIELD_CENTER_Y) - 1.0d0
+               FIELD(i,j,k)%z = dble(k - FIELD_SIZE_Z/2 + FIELD_CENTER_Z) - 1.0d0
+               if(FIELD(i, j, k)%wall==1 .and. FIELD_TOP<FIELD(i,j,k)%y) then
+                  FIELD_TOP = FIELD(i,j,k)%y
+               end if
             end Do
-        end Do
-
-        If(write_flag==1) then
-           write(*, *) 'Write field into ./field.d'
-           call write_field('./field.d')
-        end If
+         end Do
+      end Do
+      
+      If(write_flag==1) then
+         write(*, *) 'Write field into ./field.d'
+         call write_field('./field.d')
+      end If
         
-        call make_field_list()
+      call make_field_list()
 
     end subroutine field_init
 
@@ -1575,7 +1578,6 @@ contains
         allocate(AGE_COUNT(TRANS_INTERVAL_STEP))
         allocate(EVERY_STEP_COST_LIST(NOCC+1))
 
-        allocate(FIELD(FIELD_SIZE_X, FIELD_SIZE_Y, FIELD_SIZE_Z))
         write(*, *) 'call field_init()'
         call field_init()
         write(*, *) 'field_init() done'
@@ -1665,25 +1667,43 @@ contains
     end subroutine write_field
 
     subroutine read_field(filename)
-        Character(len=*) :: filename
-        Integer :: i, j, k, fp = 12
-        Integer :: fsx, fsy, fsz, ccob
-        open(fp, file=filename)
-        read(fp,*) fsx, fsy, fsz
-        read(fp,*) ccob
-        Do i=1, FIELD_SIZE_X
-            Do j=1, FIELD_SIZE_Y
-                Do k=1, FIELD_SIZE_Z
-                    read(fp,*) FIELD(i,j,k)%wall
-                    read(fp,*) FIELD(i,j,k)%NOC
-                    read(fp,*) FIELD(i,j,k)%IOC(:)
-                    read(fp,*) FIELD(i,j,k)%x, FIELD(i,j,k)%y, FIELD(i,j,k)%z
-                    read(fp,*) FIELD(i,j,k)%cr, FIELD(i,j,k)%cg, FIELD(i,j,k)%cb
-                    read(fp,*) FIELD(i,j,k)%ar, FIELD(i,j,k)%ag, FIELD(i,j,k)%ab
-                end Do
+      Character(len=*) :: filename
+      Integer :: i, j, k, fp = 12
+      Integer :: fsx, fsy, fsz, ccob
+      open(fp, file=filename)
+      read(fp,*) fsx, fsy, fsz
+      read(fp,*) ccob
+
+      FIELD_SIZE_X = fsx
+      FIELD_SIZE_Y = fsy
+      FIELD_SIZE_Z = fsz
+      
+      allocate(FIELD(FIELD_SIZE_X, FIELD_SIZE_Y, FIELD_SIZE_Z))
+      
+      FIELD(:, :, :)%wall = 0
+      FIELD(:, :, :)%NOC = 0
+      FIELD(:, :, :)%cr = 0.0d0
+      FIELD(:, :, :)%cg = 0.0d0
+      FIELD(:, :, :)%cb = 0.0d0
+      FIELD(:, :, :)%ar = 0.5d0
+      FIELD(:, :, :)%ag = 0.5d0
+      FIELD(:, :, :)%ab = 0.5d0   
+        
+      Do i=1, FIELD_SIZE_X
+         Do j=1, FIELD_SIZE_Y
+            Do k=1, FIELD_SIZE_Z
+               read(fp,*) FIELD(i,j,k)%wall
+               read(fp,*) FIELD(i,j,k)%NOC
+               read(fp,*) FIELD(i,j,k)%IOC(:)
+               read(fp,*) FIELD(i,j,k)%x, FIELD(i,j,k)%y, FIELD(i,j,k)%z
+               read(fp,*) FIELD(i,j,k)%cr, FIELD(i,j,k)%cg, FIELD(i,j,k)%cb
+               read(fp,*) FIELD(i,j,k)%ar, FIELD(i,j,k)%ag, FIELD(i,j,k)%ab
             end Do
-        end Do
-        close(fp)
+         end Do
+      end Do
+      
+      close(fp)
+      
     end subroutine read_field
 
     subroutine write_cells(basefilename)

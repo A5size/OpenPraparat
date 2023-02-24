@@ -106,7 +106,7 @@ public:
   void reset()
   {
     releaseField();
-    Field = nullptr;
+    //Field = nullptr;
     block_list.clear();
   }
   
@@ -198,6 +198,306 @@ public:
     
   }
 
+  void create_flat_field(int FIELD_SIZE_X_, int FIELD_SIZE_Y_, int FIELD_SIZE_Z_,
+			 int CELL_CAPACITY_OF_BLOCK_)
+  {
+
+    if(readFlag==1)
+    {
+      reset();
+    }
+
+    FIELD_SIZE_X = FIELD_SIZE_X_;
+    FIELD_SIZE_Y = FIELD_SIZE_Y_;
+    FIELD_SIZE_Z = FIELD_SIZE_Z_;
+    int FIELD_CENTER_X = 0;
+    int FIELD_CENTER_Y = FIELD_SIZE_Y/4;
+    int FIELD_CENTER_Z = 0;
+    CELL_CAPACITY_OF_BLOCK = CELL_CAPACITY_OF_BLOCK_;
+
+    Field = new Map**[FIELD_SIZE_X];
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      Field[i] = new Map*[FIELD_SIZE_Y];
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	Field[i][j] = new Map[FIELD_SIZE_Z];
+      }
+    }
+
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	for(int k=0; k<FIELD_SIZE_Z; k++)
+	{
+	  Field[i][j][k].wall = 0;
+	  Field[i][j][k].NOC = 0;
+
+	  Field[i][j][k].x = round(i - FIELD_SIZE_X/2 + FIELD_CENTER_X);
+	  Field[i][j][k].y = round(j - FIELD_SIZE_Y/2 + FIELD_CENTER_Y);
+	  Field[i][j][k].z = round(k - FIELD_SIZE_Z/2 + FIELD_CENTER_Z);
+	  
+	  Field[i][j][k].cr = 0.0;
+	  Field[i][j][k].cg = 0.0;
+	  Field[i][j][k].cb = 0.0;
+
+	  Field[i][j][k].ar = 0.5;
+	  Field[i][j][k].ag = 0.5;
+	  Field[i][j][k].ab = 0.5;
+
+	  if(j==(FIELD_CENTER_Y-1))
+	  {
+	    Field[i][j][k].wall = 1;
+	    
+	    Field[i][j][k].cr = 0.5;
+	    Field[i][j][k].cg = 0.5;
+	    Field[i][j][k].cb = 0.5;
+
+	    Field[i][j][k].ar = 0.5;
+	    Field[i][j][k].ag = 0.5;
+	    Field[i][j][k].ab = 0.5;
+	  }
+
+	  if(i==0 || i==(FIELD_SIZE_X-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	  if(j==0 || j==(FIELD_SIZE_Y-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	  if(k==0 || k==(FIELD_SIZE_Z-1))
+	  {
+	    Field[i][j][k].wall = 2;
+	  }
+
+	  if(Field[i][j][k].wall!=0)
+	  {
+	    std::cout << Field[i][j][k].wall << ", "
+		      << Field[i][j][k].cr << ", "
+		      << Field[i][j][k].cg << ", "
+		      << Field[i][j][k].cb << std::endl;
+	    block_list.push_back({Field[i][j][k].wall,
+				  i, j, k, 
+				  Field[i][j][k].x,  Field[i][j][k].y,  Field[i][j][k].z,
+				  Field[i][j][k].cr, Field[i][j][k].cg, Field[i][j][k].cb,
+				  Field[i][j][k].ar, Field[i][j][k].ag, Field[i][j][k].ab});
+	  }
+	  
+	}
+      }
+    }
+
+    readFlag = 1;
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  void create_random_field(int FIELD_SIZE_X_, int FIELD_SIZE_Y_, int FIELD_SIZE_Z_,
+			   int CELL_CAPACITY_OF_BLOCK_)
+  {
+    
+    int n, mx, my, rpx, rpy, dx, dy;
+    double x, y, z, z00, z01, z10, z11, r, g, b;
+
+    n = 4;
+    
+    if(readFlag==1)
+    {
+      reset();
+    }
+
+    FIELD_SIZE_X = FIELD_SIZE_X_;
+    FIELD_SIZE_Y = FIELD_SIZE_Y_;
+    FIELD_SIZE_Z = FIELD_SIZE_Z_;
+    int FIELD_CENTER_X = 0;
+    int FIELD_CENTER_Y = FIELD_SIZE_Y/4;
+    int FIELD_CENTER_Z = 0;
+    CELL_CAPACITY_OF_BLOCK = CELL_CAPACITY_OF_BLOCK_;
+
+    Field = new Map**[FIELD_SIZE_X];
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      Field[i] = new Map*[FIELD_SIZE_Y];
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	Field[i][j] = new Map[FIELD_SIZE_Z];
+      }
+    }
+
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	for(int k=0; k<FIELD_SIZE_Z; k++)
+	{
+	  Field[i][j][k].wall = 0;
+	  Field[i][j][k].NOC = 0;
+
+	  Field[i][j][k].x = round(i - FIELD_SIZE_X/2 + FIELD_CENTER_X);
+	  Field[i][j][k].y = round(j - FIELD_SIZE_Y/2 + FIELD_CENTER_Y);
+	  Field[i][j][k].z = round(k - FIELD_SIZE_Z/2 + FIELD_CENTER_Z);
+	  
+	  Field[i][j][k].cr = 0.0;
+	  Field[i][j][k].cg = 0.0;
+	  Field[i][j][k].cb = 0.0;
+
+	  Field[i][j][k].ar = 0.5;
+	  Field[i][j][k].ag = 0.5;
+	  Field[i][j][k].ab = 0.5;
+	}
+      }
+    }
+    
+    mx = round(log(FIELD_SIZE_X) / log(2.0));
+    my = round(log(FIELD_SIZE_Z) / log(2.0));
+
+    rpx = pow(2, mx-n) + 1;
+    rpy = pow(2, my-n) + 1;
+
+    std::vector<std::vector<double>> rfieldx(rpx, std::vector<double>(rpy));
+    std::vector<std::vector<double>> rfieldy(rpx, std::vector<double>(rpy));
+    
+    dx = pow(2, n);
+    dy = pow(2, n);
+
+    for(int i=0; i<rpx; i++)
+    {
+      for(int j=0; j<rpy; j++)
+      {
+	rfieldx[i][j] = rand() / (RAND_MAX + 1.0) - 0.5;
+	rfieldy[i][j] = rand() / (RAND_MAX + 1.0) - 0.5;
+      }
+    }
+    
+    for(int i=1; i<FIELD_SIZE_X; i++)
+    {
+      mx = i/dx;
+      for(int j=1; j<FIELD_SIZE_Z; j++)
+      {
+	my = j/dy;
+
+	x = (double)(i - dx*(mx + 1));
+	y = (double)(j - dy*(my + 1));
+	//z11 = x*rfieldx[mx + 2][my + 2] + y*rfieldy[mx + 2][my + 2];
+	z11 = x*rfieldx[mx+1][my+1] + y*rfieldy[mx+1][my+1];
+		
+	x = (double)(i - dx*mx);
+	y = (double)(j - dy*(my + 1));
+	//z01 = x*rfieldx[mx + 1][my + 2] + y*rfieldy[mx + 1][my + 2];
+	z01 = x*rfieldx[mx][my+1] + y*rfieldy[mx][my+1];
+	
+	x = (double)(i - dx*(mx + 1));
+	y = (double)(j - dy*my);
+	//z10 = x*rfieldx[mx + 2][my + 1] + y*rfieldy[mx + 2][my + 1];
+	z10 = x*rfieldx[mx+1][my] + y*rfieldy[mx+1][my];
+	
+	x = (double)(i - dx*mx);
+	y = (double)(j - dy*my);
+	//z00 = x*rfieldx[mx + 1][my + 1] + y*rfieldy[mx + 1][my + 1];
+	z00 = x*rfieldx[mx][my] + y*rfieldy[mx][my];
+	
+	x = x/double(dx);
+	y = y/double(dy);
+	
+	x = 6.0*pow(x,5) - 15.0*pow(x,4) + 10.0*pow(x,3);
+	y = 6.0*pow(y,5) - 15.0*pow(y,4) + 10.0*pow(y,3);
+	
+	
+	z = (1.0 - x) * (1.0 - y) * z00;
+	z += (1.0 - x) * y * z01;
+	z += x * (1.0 - y) * z10;
+	z += x * y * z11;
+	
+	if (round(z) + FIELD_CENTER_Y <= FIELD_CENTER_Y * 0.94)
+	{
+	  r = 0.110;
+	  g = 0.020;
+	  b = 1.0;
+	}
+	else if (FIELD_CENTER_Y * 0.94 < round(z) + FIELD_CENTER_Y
+		 && round(z) + FIELD_CENTER_Y <= FIELD_CENTER_Y)
+	{
+	  r = 0.522;
+	  g = 0.478;
+	  b = 0.235;
+	}
+	else
+	{
+	  r = 0.133;
+	  g = 0.765;
+	  b = 0.314;
+	}
+
+	int k = round(z) + FIELD_SIZE_Y/2 - FIELD_CENTER_Y;
+	Field[i-1][k][j-1].wall = 1;
+	Field[i-1][k][j-1].cr = r;
+	Field[i-1][k][j-1].cg = g;
+	Field[i-1][k][j-1].cb = b;
+
+      }
+    }
+
+    for(int i=0; i<FIELD_SIZE_X; i++)
+    {
+      for(int j=0; j<FIELD_SIZE_Y; j++)
+      {
+	for(int k=0; k<FIELD_SIZE_Z; k++)
+	{
+
+	  if(Field[i][j][k].wall!=0)
+	  {
+	    std::cout << Field[i][j][k].wall << ", "
+		      << Field[i][j][k].cr << ", "
+		      << Field[i][j][k].cg << ", "
+		      << Field[i][j][k].cb << std::endl;
+	    block_list.push_back({Field[i][j][k].wall,
+				  i, j, k, 
+				  Field[i][j][k].x,  Field[i][j][k].y,  Field[i][j][k].z,
+				  Field[i][j][k].cr, Field[i][j][k].cg, Field[i][j][k].cb,
+				  Field[i][j][k].ar, Field[i][j][k].ag, Field[i][j][k].ab});
+	  }
+
+	}
+      }
+    }
+    
+    readFlag = 1;
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   void write(std::string filename)
   {
 
@@ -3662,6 +3962,16 @@ public:
     //< ----------------imgui------------------ >
     //< --------------------------------------- >
         
+    int newFieldSizeX;
+    int newFieldSizeY;
+    int newFieldSizeZ;
+    char newFieldSizeX_buf[32] = "32";
+    char newFieldSizeY_buf[32] = "64";
+    char newFieldSizeZ_buf[32] = "32";
+
+    sscanf(newFieldSizeX_buf, "%d", &newFieldSizeX);
+    sscanf(newFieldSizeY_buf, "%d", &newFieldSizeY);
+    sscanf(newFieldSizeZ_buf, "%d", &newFieldSizeZ);
     
     bool showCellDetailsWindow = false;
     ImVec2 dialogMinSize = ImVec2(300.0, 150.0);
@@ -3674,15 +3984,20 @@ public:
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
 
+
+
+
+
+
+
+
       {
 
-	ImGui::Begin("Control Window");                          
+	ImGui::Begin("Main Window");                          
 	CURSOR_ON_ImGuiWINDOW = ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
 						       ImGuiHoveredFlags_ChildWindows |
 						       ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
-	ImGui::Checkbox("Cell Details Window", &showCellDetailsWindow);
-
 	if(SELECTION_MODE==0)
 	{
 	  ImGui::Text("MODE => --");
@@ -3704,6 +4019,30 @@ public:
 	  ImGui::Text("MODE => Delete One Block Mode");
 	}
 
+	ImGui::End();
+      }
+
+
+
+
+
+
+
+
+
+
+
+      
+      {
+
+	ImGui::Begin("Control Cell Window");                          
+	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW ||
+	  ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
+				 ImGuiHoveredFlags_ChildWindows |
+				 ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	
+	ImGui::Checkbox("Cell Details Window", &showCellDetailsWindow);
+
 	ImGui::Text("Read:");
 	
 	if (ImGui::Button("Cells"))
@@ -3712,17 +4051,9 @@ public:
 	  SCROLL_ACTIVE  = 0;
 	  SELECTION_MODE = 0;
 	}
-
-	ImGui::SameLine();
-
-	if (ImGui::Button("Field"))
-	{
-	  ImGuiFileDialog::Instance()->OpenDialog("ChooseFieldDlgKey", "Choose File", ".*", ".");
-	  SCROLL_ACTIVE  = 0;
-	  SELECTION_MODE = 0;
-	}
 	
-	if (ImGuiFileDialog::Instance()->Display("ReadCellsDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
+	if (ImGuiFileDialog::Instance()->Display("ReadCellsDlgKey",
+						 ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3736,22 +4067,7 @@ public:
 	  ImGuiFileDialog::Instance()->Close();
 	  SCROLL_ACTIVE = 1;
 	}
-	
-	if (ImGuiFileDialog::Instance()->Display("ChooseFieldDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
-	{
-	  if (ImGuiFileDialog::Instance()->IsOk())
-	  {
-	    std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
-	    std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
-	    printf("filePathName=%s\n", filePathName.c_str());
-	    printf("filePath    =%s\n", filePath.c_str());
-	    AppFM.read(filePathName);
-	  }
-	  
-	  ImGuiFileDialog::Instance()->Close();
-	  SCROLL_ACTIVE = 1;
-	}
-	
+		
 	ImGui::Spacing();
 
 	ImGui::Text("Selection:");
@@ -3825,6 +4141,7 @@ public:
 	  AppCM.killSelectedCell();
 	}
 
+	ImGui::PushItemWidth(200);
 	bool dxb = ImGui::SliderFloat("dx", &TRANSLATE_X, -10.0f, 10.0f); 
 	bool dyb = ImGui::SliderFloat("dy", &TRANSLATE_Y, -10.0f, 10.0f); 
 	bool dzb = ImGui::SliderFloat("dz", &TRANSLATE_Z, -10.0f, 10.0f); 
@@ -3846,18 +4163,9 @@ public:
 	  KEY_ACTIVE     = 0;
 	  SELECTION_MODE = 0;
 	}
-
-	ImGui::SameLine();
-
-	if (ImGui::Button("Field*"))
-	{
-	  ImGuiFileDialog::Instance()->OpenDialog("SaveFieldDlgKey", "Save", ".*", ".");
-	  SCROLL_ACTIVE  = 0;
-	  KEY_ACTIVE     = 0;
-	  SELECTION_MODE = 0;
-	}
 	
-	if (ImGuiFileDialog::Instance()->Display("SaveCellsDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
+	if (ImGuiFileDialog::Instance()->Display("SaveCellsDlgKey",
+						 ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3873,7 +4181,96 @@ public:
 	  KEY_ACTIVE    = 1;
 	}	
 
-	if (ImGuiFileDialog::Instance()->Display("SaveFieldDlgKey", ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
+	ImGui::End();
+      }
+
+
+
+
+
+
+
+
+
+      {
+
+	ImGui::Begin("Control Field Window");
+	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW ||
+	  ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
+				 ImGuiHoveredFlags_ChildWindows |
+				 ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	
+	ImGui::Text("Read:");
+	
+	if (ImGui::Button("Field"))
+	{
+	  ImGuiFileDialog::Instance()->OpenDialog("ChooseFieldDlgKey", "Choose File", ".*", ".");
+	  SCROLL_ACTIVE  = 0;
+	  SELECTION_MODE = 0;
+	}
+
+	if (ImGuiFileDialog::Instance()->Display("ChooseFieldDlgKey",
+						 ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
+	{
+	  if (ImGuiFileDialog::Instance()->IsOk())
+	  {
+	    std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+	    std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+	    printf("filePathName=%s\n", filePathName.c_str());
+	    printf("filePath    =%s\n", filePath.c_str());
+	    AppFM.read(filePathName);
+	  }
+	  
+	  ImGuiFileDialog::Instance()->Close();
+	  SCROLL_ACTIVE = 1;
+	}
+
+	ImGui::Spacing();
+
+	ImGui::Text("Creation:");
+	
+	strcpy(newFieldSizeY_buf, "64");
+	ImGui::PushItemWidth(50);
+	ImGui::Text("x");
+	ImGui::SameLine();
+	ImGui::InputText("##newFieldSizeX", newFieldSizeX_buf, IM_ARRAYSIZE(newFieldSizeX_buf));
+	ImGui::SameLine();
+	ImGui::Text("y");
+	ImGui::SameLine();
+	ImGui::InputText("##newFieldSizeY", newFieldSizeY_buf, IM_ARRAYSIZE(newFieldSizeY_buf));
+	ImGui::SameLine();
+	ImGui::Text("z");
+	ImGui::SameLine();
+	ImGui::InputText("##newFieldSizeZ", newFieldSizeZ_buf, IM_ARRAYSIZE(newFieldSizeZ_buf));
+	if (ImGui::Button("Create Flat Field"))
+	{
+	  sscanf(newFieldSizeX_buf, "%d", &newFieldSizeX);
+	  sscanf(newFieldSizeY_buf, "%d", &newFieldSizeY);
+	  sscanf(newFieldSizeZ_buf, "%d", &newFieldSizeZ);
+	  AppFM.create_flat_field(newFieldSizeX, newFieldSizeY, newFieldSizeZ, 128);
+	}
+	if (ImGui::Button("Create Random Field"))
+	{
+	  sscanf(newFieldSizeX_buf, "%d", &newFieldSizeX);
+	  sscanf(newFieldSizeY_buf, "%d", &newFieldSizeY);
+	  sscanf(newFieldSizeZ_buf, "%d", &newFieldSizeZ);
+	  AppFM.create_random_field(newFieldSizeX, newFieldSizeY, newFieldSizeZ, 128);
+	}
+	
+	ImGui::Spacing();
+	
+	ImGui::Text("Export:");
+	
+	if (ImGui::Button("Field*"))
+	{
+	  ImGuiFileDialog::Instance()->OpenDialog("SaveFieldDlgKey", "Save", ".*", ".");
+	  SCROLL_ACTIVE  = 0;
+	  KEY_ACTIVE     = 0;
+	  SELECTION_MODE = 0;
+	}
+	
+	if (ImGuiFileDialog::Instance()->Display("SaveFieldDlgKey",
+						 ImGuiWindowFlags_NoCollapse, dialogMinSize)) 
 	{
 	  if (ImGuiFileDialog::Instance()->IsOk())
 	  {
@@ -3891,13 +4288,27 @@ public:
 
 	ImGui::End();
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
       
       if (showCellDetailsWindow)
       {
 	ImGui::Begin("Cell Details Window", &showCellDetailsWindow);
-	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW || ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
-										ImGuiHoveredFlags_ChildWindows |
-										ImGuiHoveredFlags_AllowWhenBlockedByPopup);
+	CURSOR_ON_ImGuiWINDOW = CURSOR_ON_ImGuiWINDOW ||
+	  ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem |
+				 ImGuiHoveredFlags_ChildWindows |
+				 ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	
 	if(CURRENT_SELECTED_CELL_INDEX!=-1)
 	{
