@@ -87,6 +87,7 @@ extern "C" {
   void get_mutation_rate(double *x, double *z, double *mr);
   void get_mutation_param(double *mra, double *mc);
   void set_mutation_param(double *mra, double *mc);
+  void set_out_interval_step(int *n);
 }
 
 
@@ -3700,9 +3701,11 @@ public:
 
   void initializePraparat()
   {
-    
+
+    int n = 1;
     printf("Start praparat_init...\n");
     praparat_init();
+    set_out_interval_step(&n);
     
     printf("Start get_field_size...\n");
     get_field_size(&FSx, &FSy, &FSz);

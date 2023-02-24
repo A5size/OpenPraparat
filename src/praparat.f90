@@ -5634,6 +5634,11 @@ contains
       MUTATION_RATE_AMP = mra
       MUTATION_COEFF4EXPANSION = mc 
     end subroutine set_mutation_param
+
+    subroutine set_out_interval_step(n) bind(c)
+      Integer(c_int) :: n
+      OUT_INTERVAL_STEP = n
+    end subroutine set_out_interval_step
     
 end module praparat_module
 
