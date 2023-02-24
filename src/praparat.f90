@@ -129,8 +129,8 @@ module praparat_module
     Double precision :: SPRING_CATCH_C = 2.0d0 ! SPRING_CATCH_C*(r1+r2)
     Double precision :: SPRING_BREAK_C = 2.0d0 ! SPRING_BREAK_C*(r1+r2)
 
-    Double precision, parameter :: RATE_OF_VARI_L = 0.2d0
-    Double precision, parameter :: RANGE_OF_VARI_L_D = 0.7d0
+    Double precision :: RATE_OF_VARI_L = 0.2d0
+    Double precision :: RANGE_OF_VARI_L_D = 0.7d0
     Double precision, parameter :: LIMIT_S = 1.0d0
     Double precision :: RATE_OF_VARI_S = 0.1d0
     Double precision, parameter :: CELL_RECEIVE_TOUCH = 0.5d0
@@ -1364,7 +1364,8 @@ contains
       namelist/cell/SPRING_LIMIT_C, SPRING_CATCH_C, SPRING_BREAK_C
       namelist/cell/THRESHOLD_EAT, THRESHOLD_FUSION, THRESHOLD_LIGHT
       namelist/cell/RATE_OF_VARI_S
-
+      namelist/cell/RATE_OF_VARI_L, RANGE_OF_VARI_L_D
+      
       namelist/system/RANDOM_SEED_FLAG
       namelist/system/TRACE_FLAG
       namelist/system/FIX_FLAG
