@@ -1673,7 +1673,7 @@ public:
 	{
 	  for(long unsigned int ci=0; ci<cells[i].CCF.size(); ci++)
 	  {
-	    if(cells[i].CCF[ci]==1)
+	    if(cells[i].CCF[ci]==1 && aliveFlagList[id2indexDic[cells[i].IOCC[ci]]]==1)
 	    {
 	      countDic_[id2indexDic[cells[i].IOCC[ci]]] = countDic[i];
 	    }
@@ -1719,7 +1719,9 @@ public:
   {
 
     int newId, numCellsToExport;
+    int count = 0;
     std::map<int, std::map<int, int>> groupId2Id;
+    std::map<int, std::map<int, int>> groupId2alive;
 
     newId = 1;
     for(long unsigned int index=0; index<cells.size(); index++)
@@ -1727,7 +1729,12 @@ public:
       if(aliveFlagList[index]==1)
       {
 	groupId2Id[groupList[index]][cells[index].ID] = newId;
+	groupId2alive[groupList[index]][cells[index].ID] = 1;
 	newId++;
+      }
+      else
+      {
+	groupId2alive[groupList[index]][cells[index].ID] = 0;
       }
     }
 
@@ -1744,8 +1751,9 @@ public:
       {
 	continue;
       }
-      
-      std::cout << index << " / " << numCellsToExport << std::endl;
+
+      count++; 
+      std::cout << index << " : " << count << " / " << numCellsToExport << std::endl;
       
       Cell cell = cells[index];
       
@@ -1893,10 +1901,25 @@ public:
         {
 	  //CCF
 	  std::stringstream ss;
-	  for (const auto& v : cell.CCF)
+	  for (const auto& v : cell.IOCC)
 	  {
-	    ss << v << " ";
+	    if(v==0)
+	    {
+	      ss << "0 ";
+	    }
+	    else
+	    {
+	      if(groupId2alive[groupList[index]][v]==1)
+	      {
+		ss << "1 ";
+	      }
+	      else
+	      {
+		ss << "0 ";
+	      }
+	    }
 	  }
+	  
 	  ss << "\n";
 	  newCellsFile << ss.str();
         }
@@ -1906,15 +1929,56 @@ public:
 	  std::stringstream ss;
 	  for (const auto& v : cell.IOCC)
 	  {
-	    ss << groupId2Id[groupList[index]][v] << " ";
+	    if(v==0)
+	    {
+	      ss << "0 ";
+	    }
+	    else
+	    {
+	      if(groupId2alive[groupList[index]][v]==1)
+	      {
+		ss << groupId2Id[groupList[index]][v] << " ";
+	      }
+	      else
+	      {
+		ss << "0 ";
+	      }
+	    }
 	  }
+	  
 	  ss << "\n";
 	  newCellsFile << ss.str();
         }
         else if(li==28)
         {
 	  //UIOCC
-	  newCellsFile << cell.rawData[li] << "\n";
+	  int i=0;
+	  std::stringstream ss;
+	  for (const auto& v : cell.IOCC)
+	  {
+	    if(v==0)
+	    {
+	      ss << "0 ";
+	    }
+	    else
+	    {
+	      if(groupId2alive[groupList[index]][v]==1)
+	      {
+		//ss << groupId2Id[groupList[index]][v] << " ";
+		ss << cell.UIOCC[i] << " ";
+	      }
+	      else
+	      {
+		ss << "0 ";
+	      }
+	    }
+	    i++;
+	  }
+	  
+	  ss << "\n";
+	  newCellsFile << ss.str();
+	  
+	  //newCellsFile << cell.rawData[li] << "\n";
         }
         else if(li==29)
         {
