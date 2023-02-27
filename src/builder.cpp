@@ -1964,7 +1964,6 @@ public:
 	    {
 	      if(groupId2alive[groupList[index]][v]==1)
 	      {
-		//ss << groupId2Id[groupList[index]][v] << " ";
 		ss << cell.UIOCC[i] << " ";
 	      }
 	      else
@@ -1977,8 +1976,6 @@ public:
 	  
 	  ss << "\n";
 	  newCellsFile << ss.str();
-	  
-	  //newCellsFile << cell.rawData[li] << "\n";
         }
         else if(li==29)
         {

@@ -24,7 +24,8 @@ SRC_GUI   += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/img
 SRC_GUI   += $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl2.cpp
 SRC_GUI   += lib/ImGuiFileDialog/ImGuiFileDialog.cpp
 OBJS_GUI   = $(addsuffix .o, $(basename $(notdir $(SRC_GUI))))
-FFLAGS_GUI = -Wall -fbounds-check -O0 -Wuninitialized -fbacktrace -g -cpp
+#FFLAGS_GUI = -Wall -fbounds-check -O0 -Wuninitialized -fbacktrace -g -cpp
+FFLAGS_GUI = -O2 -cpp
 
 SRC_DEB    = math.f90 praparat.f90 main.f90
 OBJS_DEB   = math_deb.o praparat_deb.o main_deb.o
@@ -32,15 +33,14 @@ FFLAGS_DEB = -Wall -fbounds-check -O0 -Wuninitialized -fbacktrace -g -cpp
 
 SRC_CUI    = math.f90 praparat.f90 main.f90
 OBJS_CUI   = math_cui.o praparat_cui.o main_cui.o
-FFLAGS_CUI = -O3 -cpp
+FFLAGS_CUI = -O2 -cpp
 
 
 UNAME_S := $(shell uname -s)
 LINUX_GL_LIBS = -lGL
 
 CXXFLAGS = -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
-CXXFLAGS += -g -Wall -Wformat
-CXXFLAGS += -Wall -fbounds-check -O0 -Wuninitialized -g
+CXXFLAGS += -g -Wall -Wformat -fbounds-check -O0 -Wuninitialized 
 #CXXFLAGS += -static
 CXXFLAGS += -lgfortran -lpthread
 LIBS =
