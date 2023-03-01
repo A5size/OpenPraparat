@@ -61,22 +61,6 @@ pacman -S mingw-w64-x86_64-gcc-libgfortran
 ```
 
 It is important to execute these commands one line at a time.
-
-After installing the necessary packages, open the command prompt and set the path for bin. If you have installed MSYS2 directly under the C drive, you can set the path as follows:
-
-```
-set PATH="%PATH%;C:\msys64\mingw64\bin"
-```
-Don't close the command prompt while you compile and launch the OpenPraparat application. Because the path set by the set command would be deleted when you close the command prompt. 
-
-If you do not know the bin path, you can find out by executing the following command in the mingw64.exe:
-
-```
-where gcc
-```
-
-This will give you a response like "C:\msys64\mingw64\bin\gcc.exe". In this case, "C:\msys64\mingw64\bin" is the path for bin.
-
 Finally, launch mingw64.exe and compile OpenPraparat using the following commands:
 
 ```
@@ -84,6 +68,7 @@ git clone https://github.com/A5size/OpenPraparat
 cd ./OpenPraparat/src
 
 make all install
+./link4win.sh
 ```
 
 
