@@ -34,7 +34,7 @@ module praparat_module
     Character(len=64), parameter :: CODES = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-'
 
     Double precision :: WORLD_DT = 0.01d0
-    Double precision :: WORLD_G = 10.0d0
+    Double precision :: WORLD_G = 5.0d0
     Double precision :: BLOCK_EMD_FORCE_K = 2000.0d0
     Double precision :: BLOCK_EMD_FORCE_R = 10.0d0
     Double precision :: CELL_EMD_FORCE_K = 200.0d0
@@ -109,11 +109,11 @@ module praparat_module
     Integer, parameter :: NBLTT = 2*BOOKMARKER_LENGTH-1 + 2*BOOKMARKER_ADVANCE_LENGTH - 1
 
     Logical :: EVERY_STEP_COST_UPDATE_FLAG = .FALSE.
-    Integer :: TARGET_CELLS_NUM
+    Integer :: TARGET_CELLS_NUM = 4000
     Double precision, parameter :: LIMIT_E = 0.01d0
     Double precision :: EVERY_STEP_COST_E = 0.01d0
     Double precision :: EVERY_STEP_COST_A = 2.0d0
-    Double precision :: EVERY_STEP_COST_D = 1.0d-7 ! 1.0d-5
+    Double precision :: EVERY_STEP_COST_D = 2.0d-8 ! 1.0d-5
     Integer :: EVERY_STEP_COST_M = 0
     Double precision :: ALONE_COST_E_COEFF = 0.1d0
     Double precision :: ORG_EVERY_STEP_COST_E = 0.01d0
@@ -145,14 +145,14 @@ module praparat_module
     Double precision :: CONTACT_AREA_CORR = 0.0d0
 
     !Energy Conversion Efficiency Of Light
-    Double precision :: ECEOL_E2L = 2000.0d0
-    Double precision :: ECEOL_L2E = 500.0d0
+    Double precision :: ECEOL_E2L = 1.0d0
+    Double precision :: ECEOL_L2E = 1.0d0
     Double precision :: ECEOLR = 0.8d0
     Double precision :: ECEOLG = 0.1d0
     Double precision :: ECEOLB = 0.8d0
 
     !Energy Conversion Efficiency Of Eat
-    Double precision :: ECEOE = 0.1d0
+    Double precision :: ECEOE = 1.0d0
 
     !Energy Conversion Efficiency Of Fusion
     Double precision, parameter :: ECEOF = 1.0d0
@@ -167,20 +167,20 @@ module praparat_module
     Integer :: MUTATION_RATE_FLAG = 0
 
     Integer :: CELLS_INIT_FLAG = 0
-    Integer :: NUMBER_OF_CELL = 50000
+    Integer :: NUMBER_OF_CELL = 15000
     Integer :: ABS_KEEP_NUM = 100
     Integer :: SUN_ID = 1
-    Integer :: SUM_LIMIT_NUM = 20000
-    Integer :: ENERGY_TRANSIT_FLAG = 2
+    Integer :: SUM_LIMIT_NUM = 5000
+    Integer :: ENERGY_TRANSIT_FLAG = 4
     Double precision :: SUN_ENERGY = 1000000000000.0d0
-    Double precision :: SUN_CYCLE = 500.0d0
+    Double precision :: SUN_CYCLE = 1000.0d0
     Double precision :: SUN_AMP   = 0.4d0
-    Double precision :: MUTATION_DIVISION_RATE = 0.1d0
-    Double precision :: MUTATION_RATE_AMP = 0.5d0
+    Double precision :: MUTATION_DIVISION_RATE = 0.5d0
+    Double precision :: MUTATION_RATE_AMP = 0.0d0
     Double precision :: MUTATION_RATE_THR = 0.4d0
     Double precision :: MUTATION_RATE_T = 10000.0d0
     Double precision :: MUTATION_CENTER = 0.05d0
-    Double precision :: MUTATION_COEFF4EXPANSION = 2.0d0
+    Double precision :: MUTATION_COEFF4EXPANSION = 0.0d0
 
     Integer, parameter :: WALL_VALUE = 1
     Integer, parameter :: IVWALL_VALUE = 2
@@ -200,12 +200,12 @@ module praparat_module
     Integer :: FIELD_CENTER_Y = 16
     Integer :: FIELD_CENTER_Z = 0
 
-    Integer :: DEPTH_LIMIT = 2
+    Integer :: DEPTH_LIMIT = 3
     Double precision :: HEIGHT_LIMIT = -1.0d0
 
     Double precision :: FIELD_TOP = 0.0d0
     Double precision :: CELLS_BOTTOM = 0.0d0
-    Double precision :: DISTANCE2SUN = 40.0d0
+    Double precision :: DISTANCE2SUN = 30.0d0
 
     Logical :: LOG_FLAG = .FALSE.
 
@@ -276,7 +276,7 @@ module praparat_module
     end type cell
 
     Integer :: WORLD_STEP = 1
-    Integer :: TRANS_INTERVAL_STEP = 100
+    Integer :: TRANS_INTERVAL_STEP = 200
     Integer :: RESET_INTERVAL_STEP = 5
     Integer :: OUT_INTERVAL_STEP = 10
 
