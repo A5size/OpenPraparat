@@ -133,14 +133,12 @@ _default : .FALSE._ <br>
 
 ### EVERY_STEP_COST_E
 _default : 0.01d0_ <br>
-エネルギー$E$を持つセルが、1ステップで消費するエネルギー量(COST)は次の式で与えられる。
+エネルギーEを持つセルが、1ステップで消費するエネルギー量(COST)は次の式で与えられる。
 ```math
 {\rm COST} = {\rm EVERY\_STEP\_COST\_E} \times \cfrac{{\rm EVERY\_STEP\_COST\_A}^{N_C}}{{\rm EVERY\_STEP\_COST\_A}^{N_{\rm max}}} \times E
 ```
-ここで、$N_C$はそのセルの結合数であり、$N_{\rm max}$は結合可能な数の最大値である。
+ここで、N<sub>C</sub>はそのセルの結合数であり、N<sub>max</sub>は結合可能な数の最大値である。
 EVERY_STEP_COST_Eは、このエネルギー量の大きさをスケールさせる役割を持つ
-
-エネルギー消費の定数(E)。EVERY_STEP_COST_A、EVERY_STEP_COST_Dと共に使用される。
 
 ### EVERY_STEP_COST_A
 _default : 2.0d0_ <br>
