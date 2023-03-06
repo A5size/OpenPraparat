@@ -21,7 +21,7 @@ _default : 0.01_ <br>
 シミュレーション時間の刻み幅
 
 ### WORLD_G
-_default : 10.0_ <br>
+_default : 5.0_ <br>
 重力加速度
 
 ### BLOCK_EMD_FORCE_K
@@ -59,15 +59,15 @@ _default : 0_ <br>
 - 1 : する
 
 ### FIELD_SIZE_X
-_default : 32_ <br>
+_default : 128_ <br>
 フィールドのX方向のサイズ
 
 ### FIELD_SIZE_Y
-_default : 64_ <br>
+_default : 128_ <br>
 フィールドのY方向のサイズ
 
 ### FIELD_SIZE_Z
-_default : 32_ <br>
+_default : 128_ <br>
 フィールドのZ方向のサイズ
 
 ### FIELD_CENTER_X
@@ -89,7 +89,7 @@ _default : 1_ <br>
 - 1 : する
 
 ### DISTANCE2SUN
-_default : 40.0_ <br>
+_default : 30.0_ <br>
 地上から太陽までの距離
 
 ### SUM_LIMIT_NUM
@@ -102,11 +102,11 @@ _default : 1000.0_ <br>
 
 ### OUT_INTERVAL_STEP
 _default : 10_ <br>
-シミュレーション情報を出力する間隔(ステップ数)
+シミュレーション情報を出力する間隔(ステップ数)。
 GUIでは、自動的に1になる
 
 ### DEPTH_LIMIT
-_default : 2_ <br>
+_default : 3_ <br>
 この深さ以下に落ちたセルは消される
 
 ### CONTACT_AREA_CORR
@@ -140,15 +140,15 @@ _default : 2.0d0_ <br>
 エネルギー消費の定数(A)。EVERY_STEP_COST_E、EVERY_STEP_COST_Dと共に使用される。
 
 ### EVERY_STEP_COST_D
-_default : 1.0d-7_ <br>
+_default : 2.0d-8_ <br>
 エネルギー消費の定数(D)。EVERY_STEP_COST_E、EVERY_STEP_COST_Aと共に使用される。
 
 ### TARGET_CELLS_NUM
-_default : None_ <br>
+_default : 4000_ <br>
 目標とするセルの数。この数になるようにEVERY_STEP_COST_Aが調整される
 
 ### TRANS_INTERVAL_STEP
-_default : 100_ <br>
+_default : 200_ <br>
 遺伝子の読み出し間隔(ステップ数)
 
 ### RESET_INTERVAL_STEP
@@ -158,37 +158,41 @@ _default : 5_ <br>
 ### MUTATION_RATE_FLAG
 _default : 0_ <br>
 突然変異率を設定する方法を指定する
-- 0 : mr=MRA
+- 0 : constant
 - 1 : circle
 - 2 : liner
 - 3 : sin
 
 ### MUTATION_DIVISION_RATE
-_default : 0.1d0_ <br>
+_default : 0.5d0_ <br>
 分裂時の突然変異率を設定するパラメータ
 
 ### MUTATION_RATE_AMP
-_default : 0.5d0_ <br>
+_default : 0.0d0_ <br>
 突然変異確率P_A
 
 ### MUTATION_COEFF4EXPANSION
-_default : 2.0d0_ <br>
+_default : 0.0d0_ <br>
 突然変異確率P_Bの係数C(P_B = C*P_A)
 
 ### NUMBER_OF_CELL
-_default : 50000_ <br>
-生成するセルの数
+_default : 15000_ <br>
+何個分のセルのメモリを確保するか。
+この値がシミュレーション可能なセル数の上限となる。
+ここで、光の粒子もメモリ上はセルとして扱われていることに注意。
+すなわち、ここで言う上限とは、生物の体を構成しているセルと
+光の粒子の合計に対する上限である
 
 ### ABS_KEEP_NUM
 _default : 100_ <br>
 セル数がこの数を下回ると、エネルギー消費量が0になる
 
 ### ECEOL_E2L
-_default : 2000.0d0_ <br>
+_default : 1.0d0_ <br>
 エネルギーから光への変換効率
 
 ### ECEOL_L2E
-_default : 500.0d0_ <br>
+_default : 1.0d0_ <br>
 光からエネルギーへの変換効率
 
 ### ECEOLR
@@ -204,12 +208,29 @@ _default : 0.8d0_ <br>
 青の光から得られるエネルギーの効率
 
 ### ECEOE
-_default : 0.1d0_ <br>
+_default : 1.0d0_ <br>
 他のセルを食べた際のエネルギー変換効率
 
 ### ENERGY_TRANSIT_FLAG
-_default : 2_ <br>
+_default : 4_ <br>
 エネルギー輸送の方法を指定する
+- 0 : 固定値
+- 1 : 固定値(多い方から少ない方へ)
+- 2 : エネルギー差にスケール(多い方から少ない方へ)
+- 3 : エネルギー差とNNの出力の積にスケール(多い方から少ない方へ)
+- 4 : エネルギー量とNNの出力の積にスケール
+- 5 : エネルギー差にスケール
+
+### ENERGY_TRANSIT_MIN
+_default : 1.0d0_ <br>
+ENERGY_TRANSIT_FLAGが0か1のときに使われる。
+輸送されるエネルギー量を指定する
+
+### ENERGY_TRANSIT_C
+_default : 0.1d0_ <br>
+ENERGY_TRANSIT_FLAGが2か5のときに使われる。
+エネルギー差に、この値が乗じられた量が
+輸送されるエネルギー量となる
 
 ### GENE_COST_C
 _default : 0.1d0_ <br>
