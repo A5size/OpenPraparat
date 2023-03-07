@@ -2,7 +2,7 @@ src="../build"
 dst="../packages"
 trg="praparat_gui.exe"
 
-pnm="OpenPraparat-v0.0.1-beta"
+pnm="OpenPraparat-v0.0.1-beta-win-exe"
 
 if [ ! -f ${src}"/"${trg} ]; then
     echo "Error: ${src}"/"${trg} not found."
@@ -21,6 +21,7 @@ fi
 cp -r ${src} ${dst}/${pnm}
 cp ../ThirdPartyNotices.txt ${dst}/${pnm}/
 cp ../LICENSE.md ${dst}/${pnm}/
+cp -r ../utilities ${dst}/${pnm}/
 tar -zxvf ../examples.tar.gz -C ${dst}/${pnm}/
 
 for dll in `ldd ${src}/${trg} | grep -v /c/ | awk '{print $3}'`;
