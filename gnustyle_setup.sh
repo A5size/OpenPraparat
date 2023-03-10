@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 touch NEWS README AUTHORS ChangeLog COPYING
 autoscan
 sed -e "s/FULL-PACKAGE-NAME/OpenPraparat/" -i configure.scan
