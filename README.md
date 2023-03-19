@@ -7,7 +7,7 @@ OpenPraparat is a code that simulates an artificial life model presented in the 
 
 ## YouTube
 An introductory video is available on YouTube.
-The video is in Japanese with English subtitles.
+The video is in Japanese, but English subtitles are available.
 [![](https://user-images.githubusercontent.com/41696627/226199549-68aef66d-6c29-46fc-8ed5-cab10b9d80a2.png)](https://www.youtube.com/watch?v=jyWKE1IfTyE)
 
 
