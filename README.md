@@ -1,4 +1,5 @@
 # OpenPraparat
+[![Makefile CI](https://github.com/nodokaha/OpenPraparat/actions/workflows/main.yml/badge.svg)](https://github.com/nodokaha/OpenPraparat/actions/workflows/main.yml)
 
 OpenPraparat is a code that simulates an artificial life model presented in the paper titled "Artificial Life using a Book and Bookmarker." 
 
