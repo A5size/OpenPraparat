@@ -75,7 +75,7 @@ jobs:
       run: |
         mkdir build
         ./gnustyle_setup.sh
-        ./configure --prefix=/ --disable-shared --enable-static LDFLAGS="-static-libgcc -static-libstdc++ -static-libgfortran -Bstatic -lglfw"
+        ./configure --prefix=/ --disable-shared --enable-static LDFLAGS="-static-libgcc -static-libstdc++ -static-libgfortran"
         cd src
         make
         make install DESTDIR=$(pwd)/../build
