@@ -1518,7 +1518,7 @@ contains
          Do i=1, FRAGMENT_NUM
             write (filename, '("fragment", i4.4, ".d")') i
             open(fp, file=trim(filename), status="replace")
-            write(fp, *) WORLD_STEP, fragment_count(i)
+            write(fp, "(*(G0, ' '))") WORLD_STEP, fragment_count(i)
             close(fp)
          end Do
          
@@ -1528,7 +1528,7 @@ contains
 
          open(fp, file="fragment.d", status="replace")
 
-         write(fp, *) "WORLD_STEP=", WORLD_STEP 
+         write(fp, "(*(G0, ' '))") "WORLD_STEP=", WORLD_STEP 
          Do CALC_CLn=1, CALC_CLL
             id = CALC_CL(CALC_CLn)
             If(CELLS(id)%INFO_TRANS_F==0) then
@@ -1542,7 +1542,7 @@ contains
                      fragment(j:j) = CODES(n:n)
                   end Do
                   If(index(CELLS(id)%book, trim(adjustl(fragment)))/=0) then
-                     write(fp, *) id, i, CELLS(id)%x, CELLS(id)%y, CELLS(id)%z, CELLS(id)%E
+                     write(fp, "(*(G0, ' '))") id, i, CELLS(id)%x, CELLS(id)%y, CELLS(id)%z, CELLS(id)%E, CELLS(id)%IOCC
                   end If
                end Do
             end If
@@ -1610,6 +1610,10 @@ contains
         call field_init()
         write(*, *) 'field_init() done'
 
+        if(TRACE_FLAG==1) then
+           call trace_init()
+        end if
+        
         Do i=1, NUMBER_OF_CELL
             call free_cell(i)
         end Do
@@ -1653,10 +1657,6 @@ contains
          else
             !
          end If
-
-        if(TRACE_FLAG==1) then
-           call trace_init()
-        end if
 
         if(0<FIX_FLAG) then
            call fix_init()
@@ -5406,7 +5406,7 @@ contains
            Do i=1, FRAGMENT_NUM
               write (filename, '("fragment", i4.4, ".d")') i
               open(fp, file=trim(filename), status="old", position="append")
-              write(fp, *) WORLD_STEP, fragment_count(i)
+              write(fp, "(*(G0, ' '))") WORLD_STEP, fragment_count(i)
               close(fp)
            end Do
            deallocate(fragment_count)
@@ -5415,7 +5415,7 @@ contains
 
            open(fp, file="fragment.d", status="old", position="append")
   
-           write(fp, *) "WORLD_STEP=", WORLD_STEP 
+           write(fp, "(*(G0, ' '))") "WORLD_STEP=", WORLD_STEP 
            Do CALC_CLn=1, CALC_CLL
               id = CALC_CL(CALC_CLn)
               If(CELLS(id)%INFO_TRANS_F==0) then
@@ -5429,7 +5429,7 @@ contains
                        fragment(j:j) = CODES(n:n)
                     end Do
                     If(index(CELLS(id)%book, trim(adjustl(fragment)))/=0) then
-                       write(fp, *) id, i, CELLS(id)%x, CELLS(id)%y, CELLS(id)%z, CELLS(id)%E
+                       write(fp, "(*(G0, ' '))") id, i, CELLS(id)%x, CELLS(id)%y, CELLS(id)%z, CELLS(id)%E, CELLS(id)%IOCC
                     end If
                  end Do
               end If
