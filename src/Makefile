@@ -52,7 +52,7 @@ LIBS =
 
 ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
-	LIBS += -lGL -lGLU `pkg-config --static --libs glfw3`
+	LIBS += -lGL -lGLU `pkg-config --libs glfw3`
 
 	CXXFLAGS += `pkg-config --cflags glfw3`
 	CFLAGS = $(CXXFLAGS)
@@ -64,6 +64,9 @@ ifeq ($(UNAME_S), Darwin) #APPLE
 	BREW_GCC_PATH := $(shell brew --prefix gcc)
 	BREW_GCC := $(shell ls -1 $(BREW_GCC_PATH)/bin/ | grep ^g++ | sed 's/*//')
 	CXX = $(BREW_GCC)
+	BREW_FC_PATH := $(shell brew --prefix gfortran)
+	BREW_FC := $(shell ls -1 $(BREW_FC_PATH)/bin/ | grep ^gfortran- | sed -e 's/*//')
+	FC = $(BREW_FC)
 
 	LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 	LIBS += -L/usr/local/lib -L/opt/homebrew/lib

@@ -1,9 +1,20 @@
 # OpenPraparat
+[![Makefile CI](https://github.com/A5size/OpenPraparat/actions/workflows/main.yml/badge.svg)](https://github.com/A5size/OpenPraparat/actions/workflows/main.yml)
 
 OpenPraparat is a code that simulates an artificial life model presented in the paper titled "Artificial Life using a Book and Bookmarker." 
 
 >__Artificial Life using a Book and Bookmarker__ [[arXiv](https://arxiv.org/abs/2210.12854)] <br>
 >Reproduction, development, and individual interactions are essential topics in artificial life. The cellular automata, which can handle these in a composite way, is highly restricted in its form and behavior because it represents life as a pattern of cells. In contrast, the virtual creatures proposed by Karl Sims have a very high degree of freedom in terms of morphology and behavior. However, they have limited expressive capacity in terms of those viewpoints. This study carefully extracts the characteristics of the cellular automata and Sims models to propose a new artificial life model that can simulate reproduction, development, and individual interactions while exhibiting high expressive power for morphology and behavior. The simulation was performed by sequentially reading a book with genetic information and repeatedly executing four actions: expansion, connection, disconnection, and transition. The virtual creatures in the proposed model exhibit unique survival strategies and lifestyles and acquire interesting properties in reproduction, development, and individual interactions while having freedom in morphology and behavior.
+
+## YouTube
+An introductory video is available on YouTube.
+The video is in Japanese, but English subtitles are available. <br>
+
+#0 Introduction of the game Praparat <br>
+[![](https://user-images.githubusercontent.com/41696627/226199549-68aef66d-6c29-46fc-8ed5-cab10b9d80a2.png)](https://www.youtube.com/watch?v=jyWKE1IfTyE)
+
+#1 Dumbbell-Shaped Creature <br>
+[![](https://img.youtube.com/vi/1jfdDKxs1CU/0.jpg)](https://www.youtube.com/watch?v=1jfdDKxs1CU)
 
 ## Install 
 
