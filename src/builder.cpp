@@ -4158,9 +4158,13 @@ public:
     
     bool showCellDetailsWindow = false;
     ImVec2 dialogMinSize = ImVec2(300.0, 150.0);
+
+    printf("Check Point 0\n");
     
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
+
+      printf("Check Point 1\n");
       
       //ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplOpenGL2_NewFrame();
@@ -4168,7 +4172,8 @@ public:
       ImGui::NewFrame();
 
 
-
+      
+      printf("Check Point 2\n");
 
 
 
@@ -4210,7 +4215,7 @@ public:
 
 
 
-
+      printf("Check Point 3\n");
 
 
 
@@ -4370,7 +4375,7 @@ public:
 
 
 
-
+      printf("Check Point 4\n");
 
 
 
@@ -4477,7 +4482,7 @@ public:
 
 
 
-
+      printf("Check Point 5\n");
 
 
 
@@ -4555,6 +4560,8 @@ public:
 	
 	ImGui::End();
       }
+
+      printf("Check Point 6\n");
       
       ImGui::Render();
       
@@ -4570,6 +4577,8 @@ public:
 #else
       resize(window, WIN_WIDTH, WIN_HEIGHT);
 #endif
+
+      printf("Check Point 7\n");
       
       glfwSwapBuffers(window);
       glfwPollEvents();
@@ -4591,6 +4600,9 @@ public:
 	//step(&n);
 	//step(&m);
       }
+
+      printf("Check Point 8\n");
+      
     }
 
     //ImGui_ImplOpenGL3_Shutdown();
