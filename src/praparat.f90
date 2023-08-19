@@ -172,9 +172,12 @@ module praparat_module
     Integer :: SUN_ID = 1
     Integer :: SUM_LIMIT_NUM = 5000
     Integer :: ENERGY_TRANSIT_FLAG = 4
-    Double precision :: SUN_ENERGY = 1000000000000.0d0
+    Double precision :: SUN_ENERGY = 1.0d+12 ! 1000000000000.0d0
     Double precision :: SUN_CYCLE = 1000.0d0
     Double precision :: SUN_AMP   = 0.4d0
+    Double precision :: SUN_IOLr = 10.0d0
+    Double precision :: SUN_IOLg = 10.0d0
+    Double precision :: SUN_IOLb = 8.0d0    
     Double precision :: MUTATION_DIVISION_RATE = 0.5d0
     Double precision :: MUTATION_RATE_AMP = 0.0d0
     Double precision :: MUTATION_RATE_THR = 0.4d0
@@ -629,9 +632,9 @@ contains
         CELLS(id)%ag = 1.0d0 - CELLS(id)%cg
         CELLS(id)%ab = 1.0d0 - CELLS(id)%cb
 
-        CELLS(id)%IOLr = 10.0d0
-        CELLS(id)%IOLg = 10.0d0
-        CELLS(id)%IOLb = 8.0d0
+        CELLS(id)%IOLr = SUN_IOLr
+        CELLS(id)%IOLg = SUN_IOLg
+        CELLS(id)%IOLb = SUN_IOLb
 
         CELLS(id)%m = INFO_TRANS_M
         CELLS(id)%r = 0.4d0
@@ -1351,6 +1354,7 @@ contains
       namelist/world/SUM_LIMIT_NUM
       namelist/world/SUN_CYCLE
       namelist/world/SUN_AMP
+      namelist/world/SUN_ENERGY, SUN_IOLr, SUN_IOLg, SUN_IOLb
       namelist/world/FIELD_SIZE_X, FIELD_SIZE_Y, FIELD_SIZE_Z
       namelist/world/FIELD_CENTER_X, FIELD_CENTER_Y, FIELD_CENTER_Z
       namelist/world/DEPTH_LIMIT, HEIGHT_LIMIT
