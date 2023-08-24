@@ -74,8 +74,6 @@ pacman -S mingw-w64-x86_64-gcc-fortran
 pacman -S mingw-w64-x86_64-gcc-libgfortran
 ```
 
-It is important to execute these commands one line at a time.
-
 Finally, launch mingw64.exe and compile OpenPraparat using the following commands:
 
 ```
