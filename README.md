@@ -56,7 +56,10 @@ make all install
 
 To compile OpenPraparat on Windows, you will need to install MSYS2. To do so, follow the procedure 1 to 5 outlined in the installation section on the MSYS2 website: https://www.msys2.org/.
 
-Once you have completed procedure 5, close the MSYS2 window and launch mingw64.exe in MSYS2. Then, use the following commands to install the necessary packages:
+Once you have completed procedure 5, close the MSYS2 window and launch mingw64.exe in MSYS2. 
+
+Next, you'll need to install the necessary packages. 
+**It is important to execute each of the following commands one line at a time:**
 
 ```
 pacman -Sy
