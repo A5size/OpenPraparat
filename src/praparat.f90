@@ -3240,15 +3240,19 @@ contains
                end if
             end If
 
-            If(CELLS(id)%INFO_TRANS_F==1) then
-                NUMBER_OF_INFO_TRANS = NUMBER_OF_INFO_TRANS + 1
-            end If
-
             If(FIELD(i,j,k)%NOC<CELL_CAPACITY_OF_BLOCK) then
                FIELD(i,j,k)%NOC = FIELD(i,j,k)%NOC + 1
                FIELD(i,j,k)%IOC(FIELD(i,j,k)%NOC) = id
             else
-               write(*, *) 'Number of the cell over the limit!!', i, j, k
+               write(*, *) 'Number of the cell over the limit!!', i, j, k, id, CELLS(id)%INFO_TRANS_F
+               call free_cell(id)
+               call delete_BACK_CALC_CL(id)
+               call add_NEW_NOT_CALC_CL(id)
+               cycle
+            end If
+
+            If(CELLS(id)%INFO_TRANS_F==1) then
+                NUMBER_OF_INFO_TRANS = NUMBER_OF_INFO_TRANS + 1
             end If
 
             BACK_CALC_CLn = BACK_CALC_CLn + 1
@@ -3309,15 +3313,19 @@ contains
                end if
             end If
             
-            If(CELLS(id)%INFO_TRANS_F==1) then
-                NUMBER_OF_INFO_TRANS = NUMBER_OF_INFO_TRANS + 1
-            end If
-
             If(FIELD(i,j,k)%NOC<CELL_CAPACITY_OF_BLOCK) then
                FIELD(i,j,k)%NOC = FIELD(i,j,k)%NOC + 1
                FIELD(i,j,k)%IOC(FIELD(i,j,k)%NOC) = id
             else
-               write(*, *) 'Number of the cell over the limit!!', i, j, k
+               write(*, *) 'Number of the cell over the limit!!', i, j, k, id, CELLS(id)%INFO_TRANS_F
+               call free_cell(id)
+               call delete_BACK_CALC_CL(id)
+               call add_NEW_NOT_CALC_CL(id)
+               cycle
+            end If
+
+            If(CELLS(id)%INFO_TRANS_F==1) then
+                NUMBER_OF_INFO_TRANS = NUMBER_OF_INFO_TRANS + 1
             end If
 
             BACK_CALC_CLn = BACK_CALC_CLn + 1
