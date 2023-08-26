@@ -87,7 +87,9 @@ jobs:
         cd src
         ./link4win.sh
         cd ..
-        zip -r OpenPraparat.zip build
+        cp -r utilities LICENSE.md README.md ThirdPartyNotices.txt examples.tar.gz manual_jp.md 本と栞を使った人工生命.pdf build/
+        mv build OpenPraparat
+        zip -r OpenPraparat.zip OpenPraparat
         
     - name: package make on mac
       if: ${{ matrix.os == 'macos-latest' }}
@@ -97,7 +99,10 @@ jobs:
         
     - name: zip
       if: ${{ matrix.os != 'windows-latest' }}
-      run: zip -r OpenPraparat.zip build
+      run: |
+        cp -r utilities LICENSE.md README.md ThirdPartyNotices.txt examples.tar.gz manual_jp.md 本と栞を使った人工生命.pdf build/
+        mv build OpenPraparat
+        zip -r OpenPraparat.zip OpenPraparat
         
     - name: Upload Release Asset
       if: always()
