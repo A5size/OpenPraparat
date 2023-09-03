@@ -3321,6 +3321,71 @@ public:
     glEnd();
   }
 
+  //void drawSolidCube(double x, double y, double z, double lx, double ly, double lz, double r, double g, double b)
+  //{
+  //  double p1[3], p2[3], p3[3], p4[3], p5[3], p6[3], p7[3];
+  //  
+  //  p2[0] = x + lx*(VERTEX[1][0] - 0.5);
+  //  p2[1] = y + ly*(VERTEX[1][1] - 0.5);
+  //  p2[2] = z + lz*(VERTEX[1][2] - 0.5);
+  //  
+  //  p3[0] = x + lx*(VERTEX[2][0] - 0.5);
+  //  p3[1] = y + ly*(VERTEX[2][1] - 0.5);
+  //  p3[2] = z + lz*(VERTEX[2][2] - 0.5);
+  //  
+  //  p4[0] = x + lx*(VERTEX[3][0] - 0.5);
+  //  p4[1] = y + ly*(VERTEX[3][1] - 0.5);
+  //  p4[2] = z + lz*(VERTEX[3][2] - 0.5);
+  //  
+  //  p5[0] = x + lx*(VERTEX[7][0] - 0.5);
+  //  p5[1] = y + ly*(VERTEX[7][1] - 0.5);
+  //  p5[2] = z + lz*(VERTEX[7][2] - 0.5);
+  //
+  //  p6[0] = x + lx*(VERTEX[4][0] - 0.5);
+  //  p6[1] = y + ly*(VERTEX[4][1] - 0.5);
+  //  p6[2] = z + lz*(VERTEX[4][2] - 0.5);
+  //  
+  //  p7[0] = x + lx*(VERTEX[5][0] - 0.5);
+  //  p7[1] = y + ly*(VERTEX[5][1] - 0.5);
+  //  p7[2] = z + lz*(VERTEX[5][2] - 0.5);
+  //  
+  //  glColor3d(r, g, b);
+  //  glBegin(GL_TRIANGLE_FAN);
+  //  
+  //  p1[0] = x + lx*(VERTEX[0][0] - 0.5);
+  //  p1[1] = y + ly*(VERTEX[0][1] - 0.5);
+  //  p1[2] = z + lz*(VERTEX[0][2] - 0.5);
+  //
+  //  glVertex3dv(p1);
+  //  glVertex3dv(p2);
+  //  glVertex3dv(p3);
+  //  glVertex3dv(p4);
+  //  glVertex3dv(p5);
+  //  glVertex3dv(p6);
+  //  glVertex3dv(p7);
+  //  glVertex3dv(p2);
+  //
+  //  glEnd();
+  //
+  //  glColor3d(r, g, b);
+  //  glBegin(GL_TRIANGLE_FAN);
+  //  
+  //  p1[0] = x + lx*(VERTEX[6][0] - 0.5);
+  //  p1[1] = y + ly*(VERTEX[6][1] - 0.5);
+  //  p1[2] = z + lz*(VERTEX[6][2] - 0.5);
+  //  
+  //  glVertex3dv(p1);
+  //  glVertex3dv(p2);
+  //  glVertex3dv(p3);
+  //  glVertex3dv(p4);
+  //  glVertex3dv(p5);
+  //  glVertex3dv(p6);
+  //  glVertex3dv(p7);
+  //  glVertex3dv(p2);
+  //  
+  //  glEnd();
+  //}
+
   void drawSolidCube(double x, double y, double z, double lx, double ly, double lz, double r, double g, double b)
   {
     double p1[3], p2[3], p3[3], p4[3], p5[3], p6[3], p7[3];
@@ -3355,18 +3420,32 @@ public:
     p1[0] = x + lx*(VERTEX[0][0] - 0.5);
     p1[1] = y + ly*(VERTEX[0][1] - 0.5);
     p1[2] = z + lz*(VERTEX[0][2] - 0.5);
-    
+  
     glVertex3dv(p1);
+    glColor3d(0.0, 0.0, 0.9);
     glVertex3dv(p2);
     glVertex3dv(p3);
     glVertex3dv(p4);
     glVertex3dv(p5);
     glVertex3dv(p6);
+    //glVertex3dv(p7);
+    //glVertex3dv(p2);
+  
+    glEnd();
+  
+  
+    glColor3d(r, g, b);
+    glBegin(GL_TRIANGLE_FAN);
+  
+    glVertex3dv(p1);
+    glVertex3dv(p6);
     glVertex3dv(p7);
     glVertex3dv(p2);
-    
+  
     glEnd();
-    
+  
+  
+    glColor3d(r, g, b);
     glBegin(GL_TRIANGLE_FAN);
     
     p1[0] = x + lx*(VERTEX[6][0] - 0.5);
@@ -3374,16 +3453,30 @@ public:
     p1[2] = z + lz*(VERTEX[6][2] - 0.5);
     
     glVertex3dv(p1);
-    glVertex3dv(p2);
-    glVertex3dv(p3);
-    glVertex3dv(p4);
+    glColor3d(0.0, 0.0, 0.9);
+    //glVertex3dv(p2);
+    //glVertex3dv(p3);
+    //glVertex3dv(p4);
     glVertex3dv(p5);
     glVertex3dv(p6);
     glVertex3dv(p7);
     glVertex3dv(p2);
+    glVertex3dv(p3);
     
     glEnd();
+  
+    glColor3d(r, g, b);
+    glBegin(GL_TRIANGLE_FAN);
+  
+    glVertex3dv(p1);
+    glVertex3dv(p3);
+    glVertex3dv(p4);
+    glVertex3dv(p5);
+  
+    glEnd();
+    
   }
+
   
   void drawWireField()
   {
