@@ -172,6 +172,7 @@ module praparat_module
     Integer :: SUN_ID = 1
     Integer :: SUM_LIMIT_NUM = 5000
     Integer :: ENERGY_TRANSIT_FLAG = 4
+    integer :: TELOMERE_FLAG = 0 
     Double precision :: SUN_ENERGY = 1.0d+12 ! 1000000000000.0d0
     Double precision :: SUN_CYCLE = 1000.0d0
     Double precision :: SUN_AMP   = 0.4d0
@@ -1396,6 +1397,7 @@ contains
       namelist/cell/THRESHOLD_EAT, THRESHOLD_FUSION, THRESHOLD_LIGHT
       namelist/cell/RATE_OF_VARI_S
       namelist/cell/RATE_OF_VARI_L, RANGE_OF_VARI_L_D
+      namelist/cell/TELOMERE_FLAG
       
       namelist/system/RANDOM_SEED_FLAG
       namelist/system/TRACE_FLAG
@@ -3929,7 +3931,16 @@ contains
 
         bc_first = index(book, bc_first_bm)
         bc_last = index(book, bc_last_bm, back=.true.)
-        If(bc_first==0 .or. bc_last==0) then
+        if(TELOMERE_FLAG==1) then
+           if(bc_first/=0) then
+              bc_first = bc_first + 1
+           end if
+           if(bc_last<bc_first) then
+              bc_first = 0
+              bc_last  = 0
+           end if
+        end if
+        If(bc_first<=0 .or. bc_last<=0) then
             CELLS(nid)%book(:) = ''
         else
             CELLS(nid)%book(1:(bc_last-bc_first+1+(BOOKMARKER_LENGTH-1))) = book(bc_first:bc_last+(BOOKMARKER_LENGTH-1))
