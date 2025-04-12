@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 A5size
+Copyright (c) 2023 Keishu Utimula
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
